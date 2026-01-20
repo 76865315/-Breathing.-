@@ -6,99 +6,51 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-mac:
-    runs-on: macos-latest
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest]
+
     permissions:
       contents: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Show files
-        working-directory: ./desktop
-        run: |
-          echo "=== Current directory ==="
-          pwd
-          echo "=== Files ==="
-          ls -la
-          echo "=== package.json ==="
-          cat package.json
-          echo "=== src folder ==="
-          ls -la src/
-          echo "=== assets folder ==="
-          ls -la assets/
+          node-version: 20
 
       - name: Install dependencies
+        run: npm install
         working-directory: ./desktop
-        run: |
-          echo "=== npm version ==="
-          npm --version
-          echo "=== node version ==="
-          node --version
-          echo "=== Installing dependencies ==="
-          npm install --verbose
-          echo "=== Installed packages ==="
-          ls -la node_modules/ | head -20
-          echo "=== electron-builder version ==="
-          npx electron-builder --version
 
-      - name: Build Mac App
-        working-directory: ./desktop
-        run: |
-          echo "=== Starting electron-builder ==="
-          npx electron-builder --mac --publish=never 2>&1
-          echo "=== Build finished ==="
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: electron-builder
+      - name: Build Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          package_root: ./desktop
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release: true
+          mac_certs: ""
+          mac_certs_password: ""
 
-      - name: List build output
+      - name: List output
         if: always()
-        working-directory: ./desktop
         run: |
-          echo "=== Checking dist folder ==="
-          ls -la dist/ 2>/dev/null || echo "dist folder does not exist"
-          echo "=== Checking for dmg ==="
-          find . -name "*.dmg" 2>/dev/null || echo "No dmg found"
+          echo "=== dist folder ==="
+          ls -la ./desktop/dist/ || echo "No dist folder"
 
-      - name: Upload Mac DMG
-        if: success()
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: Breathe-Mac-DMG
-          path: desktop/dist/*.dmg
-          if-no-files-found: warn
-
-      - name: Upload Mac ZIP
-        if: success()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Breathe-Mac-ZIP
-          path: desktop/dist/*.zip
-          if-no-files-found: warn
-
-      - name: Create Release
-        if: success()
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: Breathe v1.0.${{ github.run_number }}
-          body: |
-            ## Breathe - Evidence-Based Breathing App
-
-            **Download for Mac:** Click on the `.dmg` file below
-
-            ### Installation
-            1. Download the `.dmg` file
-            2. Open it
-            3. Drag Breathe to Applications
-            4. Double-click Breathe in Applications to run
-          files: |
+          name: Breathe-${{ matrix.os }}
+          path: |
             desktop/dist/*.dmg
             desktop/dist/*.zip
-          draft: false
-          prerelease: false
+            desktop/dist/*.exe
+          if-no-files-found: warn

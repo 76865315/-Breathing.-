@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const Store = require('electron-store');
 
@@ -17,11 +17,8 @@ function createWindow() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    titleBarStyle: 'hiddenInset',
-    trafficLightPosition: { x: 15, y: 15 },
     backgroundColor: '#3b82f6',
-    show: false,
-    icon: path.join(__dirname, '../assets/icon.png')
+    show: false
   });
 
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
