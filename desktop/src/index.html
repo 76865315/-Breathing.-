@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breathe</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --purple: #8b5cf6;
+      --green: #22c55e;
+      --orange: #f97316;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-400: #9ca3af;
+      --gray-500: #6b7280;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-900: #111827;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--purple) 100%);
+      min-height: 100vh;
+      color: white;
+      -webkit-app-region: drag;
+      user-select: none;
+    }
+
+    button, input, .no-drag {
+      -webkit-app-region: no-drag;
+    }
+
+    .container {
+      padding: 60px 24px 24px;
+      max-width: 100%;
+      min-height: 100vh;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-around;
+      border-top: 1px solid var(--gray-200);
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 8px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--gray-400);
+      background: none;
+      border: none;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .nav-item.active {
+      color: var(--primary);
+    }
+
+    .nav-item:hover {
+      background: var(--gray-50);
+    }
+
+    .nav-item svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 4px;
+    }
+
+    /* Screens */
+    .screen {
+      display: none;
+      padding-bottom: 100px;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    /* Home Screen */
+    .greeting {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      opacity: 0.8;
+      margin-bottom: 24px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 700;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* Quick Start Card */
+    .quick-start {
+      background: rgba(255,255,255,0.2);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .quick-start-label {
+      font-size: 12px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .quick-start-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .quick-start-desc {
+      font-size: 14px;
+      opacity: 0.9;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 24px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.02);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    /* Technique List */
+    .technique-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .technique-card {
+      background: white;
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      color: var(--gray-900);
+    }
+
+    .technique-card:hover {
+      transform: scale(1.02);
+    }
+
+    .technique-rank {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .technique-info {
+      flex: 1;
+    }
+
+    .technique-name {
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .technique-meta {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    /* Session Screen */
+    .session-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 160px);
+      text-align: center;
+    }
+
+    .timer {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .timer-label {
+      opacity: 0.8;
+      margin-bottom: 32px;
+    }
+
+    .breathing-circle-container {
+      position: relative;
+      width: 240px;
+      height: 240px;
+      margin-bottom: 32px;
+    }
+
+    .breathing-circle-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.2);
+    }
+
+    .breathing-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 160px;
+      height: 160px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.1s ease-out;
+    }
+
+    .breathing-circle.inhale {
+      animation: inhale 4s ease-in-out forwards;
+    }
+
+    .breathing-circle.exhale {
+      animation: exhale 4s ease-in-out forwards;
+    }
+
+    @keyframes inhale {
+      from { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+      to { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+    }
+
+    @keyframes exhale {
+      from { transform: translate(-50%, -50%) scale(1.4); opacity: 1; }
+      to { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+    }
+
+    .phase-text {
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .cycle-count {
+      margin-bottom: 24px;
+      opacity: 0.8;
+    }
+
+    .session-controls {
+      display: flex;
+      gap: 16px;
+    }
+
+    .control-btn {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .control-btn.primary {
+      width: 72px;
+      height: 72px;
+      background: white;
+      color: var(--primary);
+    }
+
+    .control-btn.secondary {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .control-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Progress Screen */
+    .progress-section {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .weekly-chart {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 120px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .chart-bar-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .chart-bar {
+      width: 24px;
+      background: white;
+      border-radius: 4px;
+      min-height: 4px;
+      transition: height 0.3s;
+    }
+
+    .chart-label {
+      font-size: 11px;
+      margin-top: 8px;
+      opacity: 0.7;
+    }
+
+    /* Setup Screen */
+    .setup-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 160px);
+      text-align: center;
+    }
+
+    .mood-selector {
+      display: flex;
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .mood-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .mood-btn.selected {
+      background: white;
+      color: var(--primary);
+      transform: scale(1.1);
+    }
+
+    /* Complete Screen */
+    .complete-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--green);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .star-rating {
+      display: flex;
+      gap: 8px;
+      margin: 16px 0 24px;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      font-size: 32px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.3);
+      transition: all 0.2s;
+    }
+
+    .star-btn.filled {
+      color: #fbbf24;
+    }
+
+    /* Hidden */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen active">
+      <h1 class="greeting">Good morning!</h1>
+      <p class="subtitle">Ready to breathe?</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="streak-value">0</div>
+          <div class="stat-label">Day streak</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="minutes-value">0</div>
+          <div class="stat-label">Minutes</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="sessions-value">0</div>
+          <div class="stat-label">Sessions</div>
+        </div>
+      </div>
+
+      <div class="quick-start">
+        <div class="quick-start-label">Recommended for you</div>
+        <div class="quick-start-title">Cyclic Sighing</div>
+        <div class="quick-start-desc">Stanford-proven technique for rapid stress relief</div>
+        <button class="btn btn-primary" onclick="startSession('cyclic-sighing')">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          Start Session
+        </button>
+      </div>
+
+      <h2 class="section-title">Top Techniques</h2>
+      <div class="technique-list" id="technique-list"></div>
+    </div>
+
+    <!-- Techniques Screen -->
+    <div id="techniques-screen" class="screen">
+      <h1 class="greeting">Techniques</h1>
+      <p class="subtitle">15 evidence-based breathing exercises</p>
+      <div class="technique-list" id="all-techniques-list"></div>
+    </div>
+
+    <!-- Progress Screen -->
+    <div id="progress-screen" class="screen">
+      <h1 class="greeting">Your Progress</h1>
+      <p class="subtitle">Track your breathing journey</p>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="progress-streak">0</div>
+          <div class="stat-label">Day streak</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="progress-minutes">0</div>
+          <div class="stat-label">Total min</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="progress-sessions">0</div>
+          <div class="stat-label">Sessions</div>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <h2 class="section-title">This Week</h2>
+        <div class="weekly-chart" id="weekly-chart"></div>
+      </div>
+    </div>
+
+    <!-- Session Setup Screen -->
+    <div id="setup-screen" class="screen">
+      <div class="setup-screen">
+        <h1 class="greeting">How are you feeling?</h1>
+        <p class="subtitle">Rate your current state (1-5)</p>
+        <div class="mood-selector">
+          <button class="mood-btn" onclick="selectPreMood(1)">1</button>
+          <button class="mood-btn" onclick="selectPreMood(2)">2</button>
+          <button class="mood-btn" onclick="selectPreMood(3)">3</button>
+          <button class="mood-btn" onclick="selectPreMood(4)">4</button>
+          <button class="mood-btn" onclick="selectPreMood(5)">5</button>
+        </div>
+        <p id="session-technique-name" style="font-size: 20px; font-weight: 600; margin: 24px 0 8px;">Cyclic Sighing</p>
+        <p style="opacity: 0.8; margin-bottom: 24px;">5 minutes</p>
+        <button class="btn btn-primary btn-block" id="begin-btn" onclick="beginSession()" disabled>
+          Begin Session
+        </button>
+        <button class="btn btn-secondary btn-block" style="margin-top: 12px;" onclick="cancelSession()">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Session Screen -->
+    <div id="session-screen" class="screen">
+      <div class="session-screen">
+        <div class="timer" id="session-timer">0:00</div>
+        <div class="timer-label">of <span id="session-duration">5:00</span></div>
+
+        <div class="breathing-circle-container">
+          <div class="breathing-circle-bg"></div>
+          <div class="breathing-circle" id="breathing-circle">
+            <span class="phase-text" id="phase-text">Ready</span>
+          </div>
+        </div>
+
+        <div class="cycle-count">Cycle <span id="cycle-count">1</span></div>
+
+        <div class="session-controls">
+          <button class="control-btn secondary" onclick="resetSession()">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M17.65 6.35A7.958 7.958 0 0012 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08A5.99 5.99 0 0112 18c-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+          </button>
+          <button class="control-btn primary" id="pause-btn" onclick="togglePause()">
+            <svg id="pause-icon" width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            <svg id="play-icon" class="hidden" width="32" height="32" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <button class="control-btn secondary" onclick="completeSession()">
+            <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complete Screen -->
+    <div id="complete-screen" class="screen">
+      <div class="setup-screen">
+        <div class="complete-icon">
+          <svg width="40" height="40" fill="white" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <h1 class="greeting">Great job!</h1>
+        <p class="subtitle" id="complete-duration">You completed 5:00 of breathing</p>
+
+        <p style="margin-top: 24px;">How do you feel now?</p>
+        <div class="mood-selector">
+          <button class="mood-btn" onclick="selectPostMood(1)">1</button>
+          <button class="mood-btn" onclick="selectPostMood(2)">2</button>
+          <button class="mood-btn" onclick="selectPostMood(3)">3</button>
+          <button class="mood-btn" onclick="selectPostMood(4)">4</button>
+          <button class="mood-btn" onclick="selectPostMood(5)">5</button>
+        </div>
+
+        <p>Rate this session</p>
+        <div class="star-rating">
+          <button class="star-btn" onclick="selectRating(1)">★</button>
+          <button class="star-btn" onclick="selectRating(2)">★</button>
+          <button class="star-btn" onclick="selectRating(3)">★</button>
+          <button class="star-btn" onclick="selectRating(4)">★</button>
+          <button class="star-btn" onclick="selectRating(5)">★</button>
+        </div>
+
+        <button class="btn btn-primary btn-block" id="save-btn" onclick="saveSession()" disabled>
+          Save & Continue
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav no-drag">
+    <button class="nav-item active" onclick="showScreen('home')">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+      Home
+    </button>
+    <button class="nav-item" onclick="showScreen('techniques')">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+      Techniques
+    </button>
+    <button class="nav-item" onclick="showScreen('progress')">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+      Progress
+    </button>
+  </nav>
+
+  <script>
+    // Breathing techniques data
+    const techniques = [
+      { id: 'cyclic-sighing', name: 'Cyclic Sighing', rank: 1, difficulty: 'Beginner', duration: 300, inhale: 4, hold: 0, exhale: 6, holdEmpty: 0 },
+      { id: 'coherent-breathing', name: 'Coherent Breathing', rank: 2, difficulty: 'Beginner', duration: 300, inhale: 5, hold: 0, exhale: 5, holdEmpty: 0 },
+      { id: 'box-breathing', name: 'Box Breathing', rank: 3, difficulty: 'Beginner', duration: 300, inhale: 4, hold: 4, exhale: 4, holdEmpty: 4 },
+      { id: 'diaphragmatic', name: 'Diaphragmatic Breathing', rank: 4, difficulty: 'Beginner', duration: 300, inhale: 4, hold: 0, exhale: 6, holdEmpty: 0 },
+      { id: 'extended-exhale', name: 'Extended Exhale', rank: 5, difficulty: 'Beginner', duration: 300, inhale: 4, hold: 0, exhale: 8, holdEmpty: 0 },
+      { id: '4-7-8-breathing', name: '4-7-8 Breathing', rank: 6, difficulty: 'Intermediate', duration: 300, inhale: 4, hold: 7, exhale: 8, holdEmpty: 0 },
+      { id: 'wim-hof', name: 'Wim Hof Method', rank: 7, difficulty: 'Advanced', duration: 600, inhale: 2, hold: 0, exhale: 2, holdEmpty: 15 },
+      { id: 'alternate-nostril', name: 'Alternate Nostril', rank: 8, difficulty: 'Intermediate', duration: 300, inhale: 4, hold: 4, exhale: 4, holdEmpty: 0 },
+      { id: 'breath-of-fire', name: 'Breath of Fire', rank: 9, difficulty: 'Advanced', duration: 180, inhale: 0.5, hold: 0, exhale: 0.5, holdEmpty: 0 },
+      { id: 'buteyko', name: 'Buteyko Method', rank: 10, difficulty: 'Intermediate', duration: 300, inhale: 3, hold: 3, exhale: 3, holdEmpty: 3 },
+    ];
+
+    // App state
+    let state = {
+      sessions: [],
+      currentScreen: 'home',
+      currentTechnique: null,
+      preMood: null,
+      postMood: null,
+      rating: null,
+      sessionActive: false,
+      sessionPaused: false,
+      elapsedTime: 0,
+      cycleCount: 1,
+      currentPhase: 'inhale'
+    };
+
+    let sessionInterval = null;
+    let phaseTimeout = null;
+
+    // Initialize
+    async function init() {
+      // Load saved data
+      if (window.electronAPI) {
+        const savedSessions = await window.electronAPI.store.get('sessions');
+        if (savedSessions) state.sessions = savedSessions;
+      } else {
+        const saved = localStorage.getItem('breathe-sessions');
+        if (saved) state.sessions = JSON.parse(saved);
+      }
+
+      updateGreeting();
+      updateStats();
+      renderTechniqueList();
+      renderAllTechniques();
+      renderWeeklyChart();
+    }
+
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let greeting = 'Good evening';
+      if (hour < 12) greeting = 'Good morning';
+      else if (hour < 18) greeting = 'Good afternoon';
+      document.querySelector('.greeting').textContent = greeting + '!';
+    }
+
+    function updateStats() {
+      const totalSessions = state.sessions.length;
+      const totalMinutes = Math.floor(state.sessions.reduce((sum, s) => sum + s.duration, 0) / 60);
+      const streak = calculateStreak();
+
+      document.getElementById('streak-value').textContent = streak;
+      document.getElementById('minutes-value').textContent = totalMinutes;
+      document.getElementById('sessions-value').textContent = totalSessions;
+
+      document.getElementById('progress-streak').textContent = streak;
+      document.getElementById('progress-minutes').textContent = totalMinutes;
+      document.getElementById('progress-sessions').textContent = totalSessions;
+    }
+
+    function calculateStreak() {
+      if (state.sessions.length === 0) return 0;
+
+      const dates = [...new Set(state.sessions.map(s => s.date.split('T')[0]))].sort().reverse();
+      const today = new Date().toISOString().split('T')[0];
+      const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
+
+      if (dates[0] !== today && dates[0] !== yesterday) return 0;
+
+      let streak = 1;
+      for (let i = 0; i < dates.length - 1; i++) {
+        const diff = (new Date(dates[i]) - new Date(dates[i + 1])) / 86400000;
+        if (diff === 1) streak++;
+        else break;
+      }
+      return streak;
+    }
+
+    function renderTechniqueList() {
+      const list = document.getElementById('technique-list');
+      list.innerHTML = techniques.slice(0, 4).map(t => `
+        <div class="technique-card no-drag" onclick="startSession('${t.id}')">
+          <div class="technique-rank">${t.rank}</div>
+          <div class="technique-info">
+            <div class="technique-name">${t.name}</div>
+            <div class="technique-meta">${t.difficulty} · ${Math.floor(t.duration / 60)} min</div>
+          </div>
+          <svg width="20" height="20" fill="#9ca3af" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      `).join('');
+    }
+
+    function renderAllTechniques() {
+      const list = document.getElementById('all-techniques-list');
+      list.innerHTML = techniques.map(t => `
+        <div class="technique-card no-drag" onclick="startSession('${t.id}')">
+          <div class="technique-rank">${t.rank}</div>
+          <div class="technique-info">
+            <div class="technique-name">${t.name}</div>
+            <div class="technique-meta">${t.difficulty} · ${Math.floor(t.duration / 60)} min</div>
+          </div>
+          <svg width="20" height="20" fill="#9ca3af" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+      `).join('');
+    }
+
+    function renderWeeklyChart() {
+      const chart = document.getElementById('weekly-chart');
+      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      const weekData = [0, 0, 0, 0, 0, 0, 0];
+
+      state.sessions.forEach(s => {
+        const date = new Date(s.date);
+        const dayDiff = Math.floor((Date.now() - date.getTime()) / 86400000);
+        if (dayDiff >= 0 && dayDiff < 7) {
+          weekData[6 - dayDiff] += Math.floor(s.duration / 60);
+        }
+      });
+
+      const max = Math.max(...weekData, 1);
+      chart.innerHTML = weekData.map((mins, i) => `
+        <div class="chart-bar-container">
+          <div class="chart-bar" style="height: ${(mins / max) * 80}px"></div>
+          <div class="chart-label">${days[i]}</div>
+        </div>
+      `).join('');
+    }
+
+    function showScreen(screen) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+
+      document.getElementById(screen + '-screen').classList.add('active');
+      document.querySelectorAll('.nav-item')[['home', 'techniques', 'progress'].indexOf(screen)]?.classList.add('active');
+
+      state.currentScreen = screen;
+    }
+
+    function startSession(techniqueId) {
+      state.currentTechnique = techniques.find(t => t.id === techniqueId);
+      state.preMood = null;
+      state.postMood = null;
+      state.rating = null;
+
+      document.getElementById('session-technique-name').textContent = state.currentTechnique.name;
+      document.getElementById('begin-btn').disabled = true;
+      document.querySelectorAll('#setup-screen .mood-btn').forEach(b => b.classList.remove('selected'));
+
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('setup-screen').classList.add('active');
+      document.querySelector('.nav').style.display = 'none';
+    }
+
+    function selectPreMood(mood) {
+      state.preMood = mood;
+      document.querySelectorAll('#setup-screen .mood-btn').forEach((b, i) => {
+        b.classList.toggle('selected', i + 1 === mood);
+      });
+      document.getElementById('begin-btn').disabled = false;
+    }
+
+    function cancelSession() {
+      document.querySelector('.nav').style.display = 'flex';
+      showScreen('home');
+    }
+
+    function beginSession() {
+      state.elapsedTime = 0;
+      state.cycleCount = 1;
+      state.sessionActive = true;
+      state.sessionPaused = false;
+      state.currentPhase = 'inhale';
+
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('session-screen').classList.add('active');
+
+      document.getElementById('session-duration').textContent = formatTime(state.currentTechnique.duration);
+      updateSessionDisplay();
+      startBreathingCycle();
+
+      sessionInterval = setInterval(() => {
+        if (!state.sessionPaused) {
+          state.elapsedTime++;
+          updateSessionDisplay();
+
+          if (state.elapsedTime >= state.currentTechnique.duration) {
+            completeSession();
+          }
+        }
+      }, 1000);
+    }
+
+    function updateSessionDisplay() {
+      document.getElementById('session-timer').textContent = formatTime(state.elapsedTime);
+      document.getElementById('cycle-count').textContent = state.cycleCount;
+    }
+
+    function startBreathingCycle() {
+      if (!state.sessionActive || state.sessionPaused) return;
+
+      const t = state.currentTechnique;
+      const phases = [];
+
+      if (t.inhale > 0) phases.push({ name: 'Breathe In', duration: t.inhale * 1000, class: 'inhale' });
+      if (t.hold > 0) phases.push({ name: 'Hold', duration: t.hold * 1000, class: '' });
+      if (t.exhale > 0) phases.push({ name: 'Breathe Out', duration: t.exhale * 1000, class: 'exhale' });
+      if (t.holdEmpty > 0) phases.push({ name: 'Hold', duration: t.holdEmpty * 1000, class: '' });
+
+      let phaseIndex = 0;
+
+      function runPhase() {
+        if (!state.sessionActive || state.sessionPaused) return;
+
+        const phase = phases[phaseIndex];
+        const circle = document.getElementById('breathing-circle');
+        const text = document.getElementById('phase-text');
+
+        circle.className = 'breathing-circle ' + phase.class;
+        text.textContent = phase.name;
+
+        phaseTimeout = setTimeout(() => {
+          phaseIndex++;
+          if (phaseIndex >= phases.length) {
+            phaseIndex = 0;
+            state.cycleCount++;
+            document.getElementById('cycle-count').textContent = state.cycleCount;
+          }
+          runPhase();
+        }, phase.duration);
+      }
+
+      runPhase();
+    }
+
+    function togglePause() {
+      state.sessionPaused = !state.sessionPaused;
+      document.getElementById('pause-icon').classList.toggle('hidden', state.sessionPaused);
+      document.getElementById('play-icon').classList.toggle('hidden', !state.sessionPaused);
+
+      if (!state.sessionPaused) {
+        startBreathingCycle();
+      }
+    }
+
+    function resetSession() {
+      clearInterval(sessionInterval);
+      clearTimeout(phaseTimeout);
+      state.elapsedTime = 0;
+      state.cycleCount = 1;
+      state.sessionPaused = false;
+      document.getElementById('pause-icon').classList.remove('hidden');
+      document.getElementById('play-icon').classList.add('hidden');
+      updateSessionDisplay();
+      startBreathingCycle();
+
+      sessionInterval = setInterval(() => {
+        if (!state.sessionPaused) {
+          state.elapsedTime++;
+          updateSessionDisplay();
+          if (state.elapsedTime >= state.currentTechnique.duration) {
+            completeSession();
+          }
+        }
+      }, 1000);
+    }
+
+    function completeSession() {
+      clearInterval(sessionInterval);
+      clearTimeout(phaseTimeout);
+      state.sessionActive = false;
+
+      document.getElementById('complete-duration').textContent = `You completed ${formatTime(state.elapsedTime)} of breathing`;
+
+      document.querySelectorAll('#complete-screen .mood-btn').forEach(b => b.classList.remove('selected'));
+      document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('filled'));
+      document.getElementById('save-btn').disabled = true;
+
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById('complete-screen').classList.add('active');
+    }
+
+    function selectPostMood(mood) {
+      state.postMood = mood;
+      document.querySelectorAll('#complete-screen .mood-btn').forEach((b, i) => {
+        b.classList.toggle('selected', i + 1 === mood);
+      });
+      checkSaveButton();
+    }
+
+    function selectRating(rating) {
+      state.rating = rating;
+      document.querySelectorAll('.star-btn').forEach((b, i) => {
+        b.classList.toggle('filled', i < rating);
+      });
+      checkSaveButton();
+    }
+
+    function checkSaveButton() {
+      document.getElementById('save-btn').disabled = !(state.postMood && state.rating);
+    }
+
+    async function saveSession() {
+      const session = {
+        id: Date.now().toString(),
+        techniqueId: state.currentTechnique.id,
+        date: new Date().toISOString(),
+        duration: state.elapsedTime,
+        preMood: state.preMood,
+        postMood: state.postMood,
+        rating: state.rating
+      };
+
+      state.sessions.push(session);
+
+      // Save to storage
+      if (window.electronAPI) {
+        await window.electronAPI.store.set('sessions', state.sessions);
+      } else {
+        localStorage.setItem('breathe-sessions', JSON.stringify(state.sessions));
+      }
+
+      updateStats();
+      renderWeeklyChart();
+
+      document.querySelector('.nav').style.display = 'flex';
+      showScreen('home');
+    }
+
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Initialize app
+    init();
+  </script>
+</body>
+</html>

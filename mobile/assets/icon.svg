@@ -1,0 +1,29 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+
+  <!-- Leaf/Wind Icon -->
+  <g transform="translate(256, 256) scale(2)">
+    <!-- Main leaf shape -->
+    <path d="M128 48C128 48 96 80 96 128C96 176 128 224 192 256C192 192 192 128 128 48Z"
+          fill="white" fill-opacity="0.95"/>
+
+    <!-- Secondary leaf -->
+    <path d="M192 96C192 96 160 128 160 176C160 208 176 240 224 272C240 208 240 144 192 96Z"
+          fill="white" fill-opacity="0.7"/>
+
+    <!-- Stem -->
+    <path d="M128 256C128 256 144 320 192 352"
+          stroke="white" stroke-width="16" stroke-linecap="round" fill="none" stroke-opacity="0.9"/>
+
+    <!-- Small accent -->
+    <circle cx="256" cy="128" r="24" fill="white" fill-opacity="0.5"/>
+  </g>
+</svg>

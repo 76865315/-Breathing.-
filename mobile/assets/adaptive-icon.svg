@@ -1,0 +1,21 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Android adaptive icon foreground (transparent background) -->
+
+  <!-- Leaf/Wind Icon centered -->
+  <g transform="translate(256, 256) scale(2)">
+    <!-- Main leaf shape -->
+    <path d="M128 48C128 48 96 80 96 128C96 176 128 224 192 256C192 192 192 128 128 48Z"
+          fill="#3b82f6"/>
+
+    <!-- Secondary leaf -->
+    <path d="M192 96C192 96 160 128 160 176C160 208 176 240 224 272C240 208 240 144 192 96Z"
+          fill="#60a5fa"/>
+
+    <!-- Stem -->
+    <path d="M128 256C128 256 144 320 192 352"
+          stroke="#3b82f6" stroke-width="16" stroke-linecap="round" fill="none"/>
+
+    <!-- Small accent -->
+    <circle cx="256" cy="128" r="24" fill="#93c5fd"/>
+  </g>
+</svg>

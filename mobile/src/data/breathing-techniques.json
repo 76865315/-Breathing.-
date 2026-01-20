@@ -1,0 +1,902 @@
+{
+  "techniques": [
+    {
+      "id": "cyclic-sighing",
+      "name": "Cyclic Sighing (Physiological Sigh)",
+      "category": "stress-reduction",
+      "healthImpactRank": 1,
+      "difficulty": "beginner",
+      "evidenceLevel": "high",
+      "primaryBenefits": ["stress-reduction", "mood-improvement", "anxiety-relief"],
+      "description": "The fastest scientifically-validated method to reduce stress and improve mood. Involves a double inhale followed by an extended exhale.",
+      "science": "Discovered in the 1930s and validated by Stanford research in 2023. Produces 30% greater improvement in mood compared to meditation. The double inhale maximally inflates the lung's alveoli, while the extended exhale activates parasympathetic response through respiratory sinus arrhythmia.",
+      "instructions": [
+        "Take a deep breath in through your nose",
+        "At the top, take a second short 'sip' of air to fully expand lungs",
+        "Exhale slowly and completely through your mouth (make it longer than the inhale)",
+        "Repeat for 5 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale1", "duration": 3, "instruction": "Breathe in through nose"},
+          {"name": "inhale2", "duration": 1, "instruction": "Quick second inhale"},
+          {"name": "exhale", "duration": 6, "instruction": "Long exhale through mouth"}
+        ],
+        "totalCycleDuration": 10,
+        "recommendedDuration": 300,
+        "cyclesPerMinute": 6
+      },
+      "expectedOutcomes": {
+        "immediate": ["Reduced heart rate within 1-3 breath cycles", "Subjective calming"],
+        "shortTerm": ["30% improvement in positive affect within 2-4 weeks"],
+        "longTerm": ["25-35% reduction in anxiety measures", "2-4 breath/min reduction in resting rate"]
+      },
+      "bestFor": ["Acute stress relief", "Pre-performance anxiety", "Daily mood maintenance"],
+      "contraindications": ["Stop if experiencing dizziness or tingling"],
+      "youtubeResources": [
+        {
+          "title": "How to Breathe Correctly - Huberman Lab",
+          "creator": "Andrew Huberman",
+          "url": "https://www.youtube.com/watch?v=x4m_PdFbu-s",
+          "description": "Comprehensive episode on breathing science including physiological sigh"
+        }
+      ],
+      "researchReferences": [
+        "Balban, M. Y., et al. (2023). Brief structured respiration practices enhance mood. Cell Reports Medicine, 4(1), 100895.",
+        "Stanford Medicine (2023). Cyclic sighing tops other breathing methods."
+      ]
+    },
+    {
+      "id": "coherent-breathing",
+      "name": "Coherent/Resonance Breathing",
+      "category": "parasympathetic-activation",
+      "healthImpactRank": 2,
+      "difficulty": "beginner",
+      "evidenceLevel": "high",
+      "primaryBenefits": ["hrv-optimization", "blood-pressure", "autonomic-balance"],
+      "description": "Breathing at approximately 6 breaths per minute to synchronize with the body's natural baroreflex frequency, maximizing heart rate variability.",
+      "science": "Breathing at ~0.1 Hz (6 breaths/min) creates resonance with the baroreflex loop, amplifying blood pressure oscillations and increasing baroreflex sensitivity. This is one of the most robust findings in breathing research.",
+      "instructions": [
+        "Sit comfortably with good posture",
+        "Breathe in smoothly for 5 seconds through your nose",
+        "Breathe out smoothly for 5 seconds through your nose",
+        "No pause between inhale and exhale - create a wave-like pattern",
+        "Practice for 10-20 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 5, "instruction": "Smooth inhale through nose"},
+          {"name": "exhale", "duration": 5, "instruction": "Smooth exhale through nose"}
+        ],
+        "totalCycleDuration": 10,
+        "recommendedDuration": 600,
+        "cyclesPerMinute": 6
+      },
+      "expectedOutcomes": {
+        "immediate": ["Significant HRV increases during practice"],
+        "shortTerm": ["Improved baroreflex sensitivity within weeks"],
+        "longTerm": ["Reduced blood pressure in hypertensive populations", "Cumulative improvements in baseline HRV"]
+      },
+      "bestFor": ["HRV optimization", "Blood pressure management", "Building autonomic resilience"],
+      "contraindications": ["Generally very safe for most people"],
+      "youtubeResources": [
+        {
+          "title": "Resonance Frequency Breathing",
+          "creator": "Various",
+          "url": "https://www.youtube.com/results?search_query=resonance+frequency+breathing+6+breaths",
+          "description": "Search for guided resonance breathing sessions"
+        }
+      ],
+      "researchReferences": [
+        "Lehrer, P. M., & Gevirtz, R. (2014). Heart rate variability biofeedback. Frontiers in Psychology, 5, 756."
+      ]
+    },
+    {
+      "id": "box-breathing",
+      "name": "Box Breathing (Tactical Breathing)",
+      "category": "performance",
+      "healthImpactRank": 3,
+      "difficulty": "beginner",
+      "evidenceLevel": "high",
+      "primaryBenefits": ["focus", "stress-inoculation", "co2-tolerance"],
+      "description": "Equal-duration inhale, hold, exhale, hold pattern used by Navy SEALs and first responders for maintaining composure under pressure.",
+      "science": "The equal phases create controlled stress inoculation while building CO2 tolerance. The 4-4-4-4 pattern at 4 seconds each produces approximately 4 breaths per minute, optimizing respiratory sinus arrhythmia at near-baroreflex resonance frequency.",
+      "instructions": [
+        "Sit in a comfortable position",
+        "Inhale through your nose for 4 counts",
+        "Hold your breath for 4 counts",
+        "Exhale through your mouth for 4 counts",
+        "Hold empty for 4 counts",
+        "Repeat for 4-8 cycles, or 5-10 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 4, "instruction": "Breathe in through nose"},
+          {"name": "holdFull", "duration": 4, "instruction": "Hold breath"},
+          {"name": "exhale", "duration": 4, "instruction": "Breathe out through mouth"},
+          {"name": "holdEmpty", "duration": 4, "instruction": "Hold empty"}
+        ],
+        "totalCycleDuration": 16,
+        "recommendedDuration": 300,
+        "cyclesPerMinute": 3.75
+      },
+      "expectedOutcomes": {
+        "immediate": ["Maintained composure under stress", "Increased focus"],
+        "shortTerm": ["15-25% increase in HF-HRV within 2-3 weeks"],
+        "longTerm": ["Improved CO2 tolerance", "Better emotional regulation"]
+      },
+      "bestFor": ["Pre-performance preparation", "High-pressure situations", "Training stress resilience"],
+      "contraindications": ["Avoid if breath holds cause anxiety", "Not recommended for severe panic disorder without guidance"],
+      "progression": ["Start with 3-count if 4 is difficult", "Progress to 5-count or 6-count boxes"],
+      "youtubeResources": [
+        {
+          "title": "Box Breathing Technique",
+          "creator": "Various",
+          "url": "https://www.youtube.com/results?search_query=box+breathing+navy+seals",
+          "description": "Guided box breathing sessions"
+        }
+      ],
+      "researchReferences": [
+        "Military studies on tactical breathing for stress management"
+      ]
+    },
+    {
+      "id": "diaphragmatic-breathing",
+      "name": "Diaphragmatic (Belly) Breathing",
+      "category": "foundation",
+      "healthImpactRank": 4,
+      "difficulty": "beginner",
+      "evidenceLevel": "high",
+      "primaryBenefits": ["parasympathetic-activation", "anxiety-reduction", "attention"],
+      "description": "Foundational breathing technique using the diaphragm rather than chest muscles, essential for all other breathing practices.",
+      "science": "Full engagement of the diaphragm increases tidal volume and ventilation efficiency. This increases vagal afferent signaling through the vagus nerve and improves ventilation-perfusion matching for better oxygenation.",
+      "instructions": [
+        "Lie down or sit comfortably",
+        "Place one hand on your chest and one on your belly",
+        "Breathe in through your nose, allowing your belly to rise (chest stays relatively still)",
+        "Breathe out, letting your belly fall naturally",
+        "Keep breathing natural - don't force depth or rate",
+        "Practice for 10-30 minutes daily"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 4, "instruction": "Belly rises as you breathe in"},
+          {"name": "exhale", "duration": 5, "instruction": "Belly falls as you breathe out"}
+        ],
+        "totalCycleDuration": 9,
+        "recommendedDuration": 1200,
+        "cyclesPerMinute": 6.67
+      },
+      "expectedOutcomes": {
+        "immediate": ["Calmer nervous system state"],
+        "shortTerm": ["7-12% improvement in attention task performance", "20-30% reduction in negative mood"],
+        "longTerm": ["15-25% reduction in cortisol levels after 4+ weeks", "5-10 bpm reduction in resting heart rate"]
+      },
+      "bestFor": ["Foundation practice", "Extended daily sessions", "Integration into daily activities"],
+      "contraindications": ["Generally safe for everyone"],
+      "youtubeResources": [
+        {
+          "title": "Diaphragmatic Breathing Technique",
+          "creator": "Various",
+          "url": "https://www.youtube.com/results?search_query=diaphragmatic+breathing+tutorial",
+          "description": "Learn proper belly breathing technique"
+        }
+      ],
+      "researchReferences": [
+        "Russo, M. A., Santarelli, D. M., & O'Rourke, D. (2017). The physiological effects of slow breathing. Breathe, 13(4), 298-309."
+      ]
+    },
+    {
+      "id": "extended-exhale",
+      "name": "Extended Exhale Breathing",
+      "category": "stress-reduction",
+      "healthImpactRank": 5,
+      "difficulty": "beginner",
+      "evidenceLevel": "high",
+      "primaryBenefits": ["parasympathetic-activation", "anxiety-relief", "sleep"],
+      "description": "Simple technique of making your exhale longer than your inhale to activate the parasympathetic nervous system.",
+      "science": "Extending exhalation relative to inhalation amplifies respiratory sinus arrhythmia and increases parasympathetic activation. This is one of the most consistently replicated findings in breathing research.",
+      "instructions": [
+        "Breathe in through your nose for 4 counts",
+        "Breathe out through your nose for 6-8 counts",
+        "Keep breath smooth and continuous",
+        "Practice for 5-10 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 4, "instruction": "Breathe in through nose"},
+          {"name": "exhale", "duration": 6, "instruction": "Extended exhale through nose"}
+        ],
+        "totalCycleDuration": 10,
+        "recommendedDuration": 300,
+        "cyclesPerMinute": 6
+      },
+      "expectedOutcomes": {
+        "immediate": ["Reduced heart rate within 2-3 minutes", "Increased HRV during practice"],
+        "shortTerm": ["Subjective calming within one session"],
+        "longTerm": ["Cumulative effects with regular practice", "Lasting autonomic changes"]
+      },
+      "bestFor": ["Acute stress relief", "Pre-sleep relaxation", "Daily practice"],
+      "progression": ["Start 4:6 ratio", "Progress to 4:8", "Advanced: 4:10"],
+      "contraindications": ["Stop if hyperventilation symptoms occur"],
+      "youtubeResources": [],
+      "researchReferences": [
+        "Multiple systematic reviews on slow breathing and HRV"
+      ]
+    },
+    {
+      "id": "4-7-8-breathing",
+      "name": "4-7-8 Breathing",
+      "category": "sleep",
+      "healthImpactRank": 6,
+      "difficulty": "beginner",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["sleep", "relaxation", "anxiety-relief"],
+      "description": "Popularized by Dr. Andrew Weil, this technique combines extended exhale with breath retention for deep relaxation.",
+      "science": "Combines extended exhalation (established mechanism) with breath-holding (increases CO2 and parasympathetic activation). The specific ratios are based on Dr. Weil's clinical experience rather than controlled research.",
+      "instructions": [
+        "Place the tip of your tongue against the ridge behind your upper front teeth",
+        "Exhale completely through your mouth, making a whoosh sound",
+        "Inhale quietly through your nose for 4 counts",
+        "Hold your breath for 7 counts",
+        "Exhale completely through your mouth for 8 counts with a whoosh",
+        "Complete 4 breath cycles"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 4, "instruction": "Quiet inhale through nose"},
+          {"name": "hold", "duration": 7, "instruction": "Hold your breath"},
+          {"name": "exhale", "duration": 8, "instruction": "Whoosh exhale through mouth"}
+        ],
+        "totalCycleDuration": 19,
+        "recommendedDuration": 76,
+        "cyclesPerMinute": 3.16
+      },
+      "expectedOutcomes": {
+        "immediate": ["Deep relaxation response"],
+        "shortTerm": ["Improved sleep onset with regular practice"],
+        "longTerm": ["Better sleep quality over time"]
+      },
+      "bestFor": ["Pre-sleep routine", "Nighttime waking", "Quick relaxation"],
+      "contraindications": ["Start with shorter holds if 7 seconds is too long", "Avoid if breath holds cause anxiety"],
+      "youtubeResources": [
+        {
+          "title": "4-7-8 Breathing by Dr. Andrew Weil",
+          "creator": "Dr. Andrew Weil",
+          "url": "https://www.youtube.com/results?search_query=4-7-8+breathing+andrew+weil",
+          "description": "Original 4-7-8 breathing instruction"
+        }
+      ],
+      "researchReferences": [
+        "Cleveland Clinic (2023). 4-7-8 Breathing Method For Sleep and Relaxation."
+      ]
+    },
+    {
+      "id": "wim-hof-method",
+      "name": "Wim Hof Method Breathing",
+      "category": "energy-activation",
+      "healthImpactRank": 7,
+      "difficulty": "intermediate",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["energy", "immune-modulation", "cold-tolerance", "altered-states"],
+      "description": "Powerful technique combining hyperventilation with extended breath holds, shown to influence the immune system and autonomic nervous system.",
+      "science": "Combines hyperventilation (30-40 deep breaths) with extended breath holds after exhale. Creates oscillating blood gas states. Research shows voluntary activation of stress response and immune modulation in trained practitioners.",
+      "instructions": [
+        "Sit or lie in a comfortable position - NEVER in water",
+        "Take 30-40 deep breaths: fully inhale, let go (don't force exhale)",
+        "After the last exhale, hold your breath as long as comfortable",
+        "When you need to breathe, inhale fully and hold for 15 seconds",
+        "Exhale and begin the next round",
+        "Complete 3-4 rounds"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "hyperventilation", "duration": 90, "instruction": "30-40 deep breaths at ~1 per second"},
+          {"name": "retention", "duration": 90, "instruction": "Hold after exhale as long as comfortable"},
+          {"name": "recovery", "duration": 15, "instruction": "Inhale fully, hold 15 seconds"}
+        ],
+        "totalCycleDuration": 195,
+        "recommendedDuration": 780,
+        "cyclesPerMinute": 0.31
+      },
+      "expectedOutcomes": {
+        "immediate": ["Significant breath hold extension", "Tingling, visual changes, emotional shifts"],
+        "shortTerm": ["Increased energy and mental clarity"],
+        "longTerm": ["Improved immune function", "Cold tolerance", "Reduced stress and anxiety"]
+      },
+      "bestFor": ["Morning energy activation", "Building stress resilience", "Cold exposure preparation"],
+      "safetyWarnings": [
+        "NEVER practice in or near water - drowning risk",
+        "Always practice sitting or lying down",
+        "Not recommended with cardiovascular conditions",
+        "Not recommended during pregnancy",
+        "Not recommended with seizure history"
+      ],
+      "contraindications": ["Cardiovascular disease", "Pregnancy", "Seizure disorders", "Glaucoma", "Recent surgery"],
+      "youtubeResources": [
+        {
+          "title": "Wim Hof Guided Breathing",
+          "creator": "Wim Hof",
+          "url": "https://www.youtube.com/results?search_query=wim+hof+guided+breathing",
+          "description": "Official Wim Hof Method breathing sessions"
+        }
+      ],
+      "researchReferences": [
+        "Kox, M., van Eijk, L. T., Zwaag, J., et al. (2014). Voluntary activation of the sympathetic nervous system. PNAS, 111(20), 7379-7384."
+      ]
+    },
+    {
+      "id": "alternate-nostril",
+      "name": "Alternate Nostril Breathing (Nadi Shodhana)",
+      "category": "balance",
+      "healthImpactRank": 8,
+      "difficulty": "beginner",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["autonomic-balance", "focus", "hemispheric-balance"],
+      "description": "Traditional yogic technique that appears to balance hemispheric brain activity and shift autonomic state toward parasympathetic dominance.",
+      "science": "EEG studies show increased alpha/beta power, reduced hemispheric asymmetry. Shifts in autonomic balance measurable via HRV. Improved attention documented via P300 latency changes in ERP studies.",
+      "instructions": [
+        "Sit comfortably with your spine straight",
+        "Use your right hand: thumb for right nostril, ring finger for left",
+        "Close your right nostril, inhale through left",
+        "Close your left nostril, exhale through right",
+        "Inhale through right",
+        "Close right, exhale through left",
+        "This completes one cycle. Continue for 5-10 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhaleLeft", "duration": 4, "instruction": "Inhale through left nostril"},
+          {"name": "exhaleRight", "duration": 4, "instruction": "Exhale through right nostril"},
+          {"name": "inhaleRight", "duration": 4, "instruction": "Inhale through right nostril"},
+          {"name": "exhaleLeft", "duration": 4, "instruction": "Exhale through left nostril"}
+        ],
+        "totalCycleDuration": 16,
+        "recommendedDuration": 300,
+        "cyclesPerMinute": 3.75
+      },
+      "expectedOutcomes": {
+        "immediate": ["Increased sense of balance and clarity"],
+        "shortTerm": ["Improved attention", "Increased HRV"],
+        "longTerm": ["Reduced anxiety with regular practice"]
+      },
+      "bestFor": ["Balance and clarity", "Pre-meditation", "Transitioning between activities"],
+      "variations": [
+        "Equal counts (4:4) for balance",
+        "Extended exhale (4:6 or 4:8) for calming",
+        "Add breath holds for advanced practice (4:4:8)"
+      ],
+      "contraindications": ["Generally very safe"],
+      "youtubeResources": [
+        {
+          "title": "Nadi Shodhana Tutorial",
+          "creator": "Various",
+          "url": "https://www.youtube.com/results?search_query=nadi+shodhana+alternate+nostril+breathing",
+          "description": "Learn alternate nostril breathing technique"
+        }
+      ],
+      "researchReferences": [
+        "EEG studies of pranayama practitioners showing increased alpha/beta power"
+      ]
+    },
+    {
+      "id": "breath-of-fire",
+      "name": "Breath of Fire (Kapalabhati)",
+      "category": "energy-activation",
+      "healthImpactRank": 9,
+      "difficulty": "intermediate",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["energy", "alertness", "core-activation"],
+      "description": "Rapid, rhythmic diaphragmatic pumping that creates mild hyperventilation and sympathetic activation for increased energy.",
+      "science": "Rapid breathing creates mild hyperventilation and sympathetic activation. Increases alertness and energy through CO2 reduction and sympathetic nervous system activation.",
+      "instructions": [
+        "Sit with a straight spine",
+        "Take a deep breath in",
+        "Begin rapid rhythmic breathing: passive inhale, sharp exhale by contracting abdomen",
+        "Maintain 1-2 cycles per second",
+        "Practice for 30-60 seconds initially",
+        "Advanced: 1-3 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "cycle", "duration": 0.5, "instruction": "Sharp exhale, passive inhale"}
+        ],
+        "totalCycleDuration": 0.5,
+        "recommendedDuration": 60,
+        "cyclesPerMinute": 120
+      },
+      "expectedOutcomes": {
+        "immediate": ["Increased alertness and energy", "Possible tingling (normal at short durations)"],
+        "shortTerm": ["Enhanced mental clarity"],
+        "longTerm": ["Core strength", "Increased lung capacity"]
+      },
+      "bestFor": ["Morning energy", "Midday slump", "Pre-workout activation"],
+      "safetyWarnings": [
+        "Always practice seated",
+        "Stop if experiencing significant lightheadedness"
+      ],
+      "contraindications": ["Pregnancy", "Uncontrolled high blood pressure", "Recent abdominal surgery", "Seizure disorders", "Hernia"],
+      "youtubeResources": [
+        {
+          "title": "Breath of Fire Tutorial",
+          "creator": "Various",
+          "url": "https://www.youtube.com/results?search_query=kapalabhati+breath+of+fire+tutorial",
+          "description": "Learn the breath of fire technique"
+        }
+      ],
+      "researchReferences": [
+        "Studies on pranayama showing sympathetic activation with rapid breathing"
+      ]
+    },
+    {
+      "id": "buteyko-breathing",
+      "name": "Buteyko Breathing Method",
+      "category": "respiratory-health",
+      "healthImpactRank": 10,
+      "difficulty": "intermediate",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["co2-tolerance", "asthma-management", "nasal-breathing"],
+      "description": "Method developed by Dr. Konstantin Buteyko focusing on reduced breathing and increased CO2 tolerance, particularly effective for asthma and respiratory conditions.",
+      "science": "Based on the observation that people with chronic health issues often breathe faster than healthy people. Overbreathing disturbs the natural balance of oxygen and carbon dioxide. Controlled trials show reduced inhaler use in asthma patients.",
+      "instructions": [
+        "Sit upright and relax",
+        "Take a normal breath in through your nose",
+        "Take a normal breath out through your nose",
+        "Hold your breath (after exhale) until first urge to breathe (BOLT score)",
+        "Resume gentle nasal breathing",
+        "Practice reduced breathing: breathe slightly less than feels normal",
+        "Aim to increase BOLT score over time"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "normalBreath", "duration": 3, "instruction": "Normal nasal inhale"},
+          {"name": "normalExhale", "duration": 3, "instruction": "Normal nasal exhale"},
+          {"name": "hold", "duration": 15, "instruction": "Hold until first urge to breathe"}
+        ],
+        "totalCycleDuration": 21,
+        "recommendedDuration": 900,
+        "cyclesPerMinute": 2.86
+      },
+      "expectedOutcomes": {
+        "immediate": ["Awareness of breathing patterns"],
+        "shortTerm": ["Increased BOLT score", "More comfortable nasal breathing"],
+        "longTerm": ["50% reduction in inhaled steroid use (asthma)", "85% reduction in beta2-agonist use"]
+      },
+      "bestFor": ["Asthma management", "Building CO2 tolerance", "Establishing nasal breathing"],
+      "assessment": {
+        "boltScore": {
+          "description": "Body Oxygen Level Test - time until first urge to breathe after normal exhale",
+          "interpretation": {
+            "below15": "Poor CO2 tolerance, likely dysfunctional breathing",
+            "15to25": "Adequate but room for improvement",
+            "25to40": "Good CO2 tolerance",
+            "above40": "Excellent respiratory conditioning"
+          }
+        }
+      },
+      "contraindications": ["Start gradually", "Consult doctor if respiratory condition"],
+      "youtubeResources": [
+        {
+          "title": "Buteyko Breathing Method",
+          "creator": "Patrick McKeown",
+          "url": "https://www.youtube.com/results?search_query=buteyko+breathing+patrick+mckeown",
+          "description": "Learn Buteyko from the leading expert"
+        }
+      ],
+      "researchReferences": [
+        "2003 New Zealand Medical Journal: Adults with asthma reduced inhaled steroid use by 50%"
+      ]
+    },
+    {
+      "id": "pre-sleep-breathing",
+      "name": "Pre-Sleep Breathing Protocol",
+      "category": "sleep",
+      "healthImpactRank": 11,
+      "difficulty": "beginner",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["sleep-onset", "relaxation", "parasympathetic-activation"],
+      "description": "Optimized breathing pattern for facilitating sleep onset, combining extended exhale with post-exhale pause.",
+      "science": "Extended exhalation and post-exhalation pause create sustained parasympathetic activation, reducing resting arousal and facilitating sleep onset.",
+      "instructions": [
+        "Lie in bed in your sleep position",
+        "Begin 10-20 minutes before desired sleep time",
+        "Breathe in through nose for 4 seconds",
+        "Breathe out through nose for 6-8 seconds",
+        "Pause for 3-4 seconds after exhale",
+        "During exhale, release tension from face, jaw, and shoulders",
+        "Continue for 10-20 cycles"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 4, "instruction": "Gentle inhale through nose"},
+          {"name": "exhale", "duration": 7, "instruction": "Extended exhale, release tension"},
+          {"name": "pause", "duration": 3, "instruction": "Rest before next breath"}
+        ],
+        "totalCycleDuration": 14,
+        "recommendedDuration": 600,
+        "cyclesPerMinute": 4.3
+      },
+      "expectedOutcomes": {
+        "immediate": ["Relaxation response", "Reduced mental activity"],
+        "shortTerm": ["5-15 minute reduction in sleep onset time within 2-3 weeks"],
+        "longTerm": ["20-30% improvement in perceived sleep quality"]
+      },
+      "bestFor": ["Difficulty falling asleep", "Racing mind at bedtime", "Establishing sleep routine"],
+      "tips": ["Replace phone/screens with this practice", "Keep room dark and cool", "Make it a consistent routine"],
+      "contraindications": ["Generally safe for everyone"],
+      "youtubeResources": [],
+      "researchReferences": [
+        "Porges, S. W. (2011). The Polyvagal Theory."
+      ]
+    },
+    {
+      "id": "recovery-breathing",
+      "name": "Recovery/Post-Exercise Breathing",
+      "category": "recovery",
+      "healthImpactRank": 12,
+      "difficulty": "beginner",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["faster-recovery", "parasympathetic-activation", "hrv-restoration"],
+      "description": "Specific breathing pattern to accelerate parasympathetic recovery after exercise or stress.",
+      "science": "Research shows including a deliberate pause after exhalation significantly increases HF-HRV and vagal tone compared to continuous 2-phase breathing.",
+      "instructions": [
+        "Use immediately after exercise or stressful event",
+        "Sit or stand comfortably (not lying)",
+        "Breathe in for 4 seconds",
+        "Breathe out for 6 seconds",
+        "Rest/pause for 2-3 seconds before next inhale",
+        "Continue for 5-10 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 4, "instruction": "Breathe in through nose"},
+          {"name": "exhale", "duration": 6, "instruction": "Breathe out through nose"},
+          {"name": "pause", "duration": 2, "instruction": "Brief pause"}
+        ],
+        "totalCycleDuration": 12,
+        "recommendedDuration": 600,
+        "cyclesPerMinute": 5
+      },
+      "expectedOutcomes": {
+        "immediate": ["15-25% increase in HF-HRV above baseline", "10-15 bpm heart rate reduction"],
+        "shortTerm": ["Faster recovery of resting heart rate"],
+        "longTerm": ["15-25% faster recovery compared to passive recovery"]
+      },
+      "bestFor": ["Post-workout", "After stressful meetings", "Between high-intensity intervals"],
+      "contraindications": ["Generally safe for everyone"],
+      "youtubeResources": [],
+      "researchReferences": [
+        "Chang, J., et al. (2016). Rest period in diaphragmatic breathing. Complementary Therapies in Medicine, 28, 1-8."
+      ]
+    },
+    {
+      "id": "holotropic-breathwork",
+      "name": "Holotropic/Conscious-Connected Breathing",
+      "category": "altered-states",
+      "healthImpactRank": 13,
+      "difficulty": "advanced",
+      "evidenceLevel": "emerging",
+      "primaryBenefits": ["emotional-processing", "altered-states", "insight"],
+      "description": "Intensive hyperventilation practice producing altered states of consciousness with overlap to psychedelic phenomenology. Requires qualified facilitation.",
+      "science": "Sustained hyperventilation produces respiratory alkalosis and reduced cerebral blood flow (30-50% reduction). 2025 neuroimaging confirms specific blood flow changes: decreased in posterior insula/operculum, increased in amygdala/hippocampus. Degree of CO2 reduction predicts intensity of psychedelic-like experiences.",
+      "instructions": [
+        "ONLY practice with qualified facilitator initially",
+        "Lie down in comfortable, safe environment",
+        "Begin continuous deep breathing without pauses",
+        "Breathe through mouth",
+        "Maintain for 20-60 minutes",
+        "Allow emotional experiences to emerge",
+        "Integration time after session"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "continuous", "duration": 2, "instruction": "Deep continuous breathing"}
+        ],
+        "totalCycleDuration": 2,
+        "recommendedDuration": 2400,
+        "cyclesPerMinute": 30
+      },
+      "expectedOutcomes": {
+        "immediate": ["Visual phenomena", "Altered body perception", "Emotional release", "Tingling/tetany"],
+        "shortTerm": ["Improved well-being", "Reduced depressive symptoms"],
+        "longTerm": ["Potential for emotional processing and insight"]
+      },
+      "bestFor": ["Emotional processing", "Personal exploration", "Facilitated therapeutic contexts"],
+      "safetyWarnings": [
+        "Requires qualified facilitation",
+        "Appropriate set and setting essential",
+        "Can produce intense emotional experiences"
+      ],
+      "contraindications": [
+        "Cardiovascular disease",
+        "Pregnancy",
+        "Glaucoma",
+        "Recent surgery",
+        "Severe psychiatric conditions",
+        "Seizure history",
+        "Psychosis history"
+      ],
+      "youtubeResources": [
+        {
+          "title": "Holotropic Breathwork Explained",
+          "creator": "Various",
+          "url": "https://www.youtube.com/results?search_query=holotropic+breathwork+explained",
+          "description": "Learn about holotropic breathwork"
+        }
+      ],
+      "researchReferences": [
+        "2025 ASL MRI study on high-ventilation breathwork and cerebral blood flow patterns"
+      ]
+    },
+    {
+      "id": "left-nostril-breathing",
+      "name": "Left Nostril Breathing",
+      "category": "sleep",
+      "healthImpactRank": 14,
+      "difficulty": "beginner",
+      "evidenceLevel": "emerging",
+      "primaryBenefits": ["calming", "sleep", "cooling"],
+      "description": "Breathing exclusively through the left nostril to activate the calming, cooling aspects of the nervous system.",
+      "science": "Traditional yogic teaching holds that left nostril breathing activates cooling, calming energy. Research shows some differential effects on autonomic balance, though findings are not fully consistent.",
+      "instructions": [
+        "Sit or lie comfortably",
+        "Close your right nostril with your right thumb",
+        "Breathe slowly and deeply through your left nostril only",
+        "Continue for 5-10 minutes"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 5, "instruction": "Inhale through left nostril"},
+          {"name": "exhale", "duration": 5, "instruction": "Exhale through left nostril"}
+        ],
+        "totalCycleDuration": 10,
+        "recommendedDuration": 300,
+        "cyclesPerMinute": 6
+      },
+      "expectedOutcomes": {
+        "immediate": ["Subjective calming"],
+        "shortTerm": ["Increased parasympathetic markers"],
+        "longTerm": ["Better sleep quality"]
+      },
+      "bestFor": ["Pre-sleep", "When feeling overheated", "Calming an overactive mind"],
+      "contraindications": ["Nasal congestion on left side"],
+      "youtubeResources": [],
+      "researchReferences": [
+        "Studies on unilateral nostril breathing and autonomic effects"
+      ]
+    },
+    {
+      "id": "kumbhaka",
+      "name": "Breath Retention Practice (Kumbhaka)",
+      "category": "advanced",
+      "healthImpactRank": 15,
+      "difficulty": "intermediate",
+      "evidenceLevel": "moderate",
+      "primaryBenefits": ["co2-tolerance", "focus", "cerebral-blood-flow"],
+      "description": "Systematic practice of breath holds to increase CO2 tolerance, activate the dive reflex, and increase cerebral blood flow.",
+      "science": "Breath holds increase CO2 tolerance, activate the mammalian dive reflex (bradycardia, peripheral vasoconstriction), and increase cerebral blood flow. Extended practice may trigger spleen contraction and red blood cell release.",
+      "instructions": [
+        "Start with holds after inhale (easier)",
+        "Take a normal breath in",
+        "Hold for 5-10 seconds initially",
+        "Exhale and breathe normally for a few breaths",
+        "Gradually extend holds over weeks of practice",
+        "Progress to holds after exhale (more challenging)"
+      ],
+      "pattern": {
+        "phases": [
+          {"name": "inhale", "duration": 4, "instruction": "Normal inhale"},
+          {"name": "hold", "duration": 10, "instruction": "Hold breath"},
+          {"name": "exhale", "duration": 4, "instruction": "Controlled exhale"}
+        ],
+        "totalCycleDuration": 18,
+        "recommendedDuration": 600,
+        "cyclesPerMinute": 3.33
+      },
+      "expectedOutcomes": {
+        "immediate": ["Increased focus during practice"],
+        "shortTerm": ["Increased CO2 tolerance over weeks"],
+        "longTerm": ["Calmer response to CO2 rise (potentially therapeutic for panic)", "Improved breath hold capacity"]
+      },
+      "progression": {
+        "beginner": "5-10 second holds after inhale",
+        "intermediate": "20-30 second holds after inhale",
+        "advanced": "Longer ratios (1:4:2 inhale:hold:exhale)"
+      },
+      "bestFor": ["Building CO2 tolerance", "Breath hold training", "Advanced pranayama"],
+      "safetyWarnings": ["Progress gradually", "Watch for excessive strain"],
+      "contraindications": ["Uncontrolled blood pressure", "Glaucoma", "Pregnancy"],
+      "youtubeResources": [
+        {
+          "title": "Kumbhaka Breath Retention",
+          "creator": "Various",
+          "url": "https://www.youtube.com/results?search_query=kumbhaka+breath+retention+pranayama",
+          "description": "Learn breath retention techniques"
+        }
+      ],
+      "researchReferences": [
+        "Transcranial Doppler studies on breath retention and cerebral blood flow"
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "stress-reduction",
+      "name": "Stress Reduction & Anxiety",
+      "description": "Techniques for calming the nervous system and reducing anxiety",
+      "icon": "heart",
+      "color": "#4CAF50"
+    },
+    {
+      "id": "parasympathetic-activation",
+      "name": "Parasympathetic Activation",
+      "description": "Techniques for activating the rest-and-digest response",
+      "icon": "leaf",
+      "color": "#8BC34A"
+    },
+    {
+      "id": "performance",
+      "name": "Performance & Focus",
+      "description": "Techniques for maintaining composure and enhancing focus",
+      "icon": "target",
+      "color": "#2196F3"
+    },
+    {
+      "id": "sleep",
+      "name": "Sleep Optimization",
+      "description": "Techniques for improving sleep onset and quality",
+      "icon": "moon",
+      "color": "#673AB7"
+    },
+    {
+      "id": "energy-activation",
+      "name": "Energy & Activation",
+      "description": "Techniques for increasing alertness and energy",
+      "icon": "zap",
+      "color": "#FF9800"
+    },
+    {
+      "id": "balance",
+      "name": "Balance & Harmony",
+      "description": "Techniques for autonomic and hemispheric balance",
+      "icon": "balance",
+      "color": "#00BCD4"
+    },
+    {
+      "id": "recovery",
+      "name": "Recovery",
+      "description": "Techniques for post-exercise and post-stress recovery",
+      "icon": "refresh",
+      "color": "#009688"
+    },
+    {
+      "id": "respiratory-health",
+      "name": "Respiratory Health",
+      "description": "Techniques for improving overall respiratory function",
+      "icon": "wind",
+      "color": "#03A9F4"
+    },
+    {
+      "id": "altered-states",
+      "name": "Altered States & Exploration",
+      "description": "Advanced techniques for emotional processing and exploration",
+      "icon": "sparkles",
+      "color": "#9C27B0"
+    },
+    {
+      "id": "foundation",
+      "name": "Foundation",
+      "description": "Essential baseline techniques for all practitioners",
+      "icon": "layers",
+      "color": "#607D8B"
+    },
+    {
+      "id": "advanced",
+      "name": "Advanced Practices",
+      "description": "Techniques requiring experience and caution",
+      "icon": "award",
+      "color": "#795548"
+    }
+  ],
+  "programs": [
+    {
+      "id": "beginner-foundation",
+      "name": "Beginner Foundation (Weeks 1-4)",
+      "description": "Establish nasal breathing habit and basic parasympathetic activation",
+      "duration": 28,
+      "schedule": {
+        "morning": {"technique": "extended-exhale", "duration": 300},
+        "throughoutDay": "Nasal breathing awareness, physiological sighs when stressed",
+        "evening": {"technique": "extended-exhale", "duration": 300}
+      },
+      "weeklyGoals": [
+        "Week 1-2: Establish consistent 5-minute morning practice",
+        "Week 3-4: Add evening practice, notice breathing patterns throughout day"
+      ],
+      "tracking": ["BOLT score weekly", "Subjective stress levels"]
+    },
+    {
+      "id": "intermediate-expansion",
+      "name": "Intermediate Expansion (Weeks 5-12)",
+      "description": "Build CO2 tolerance and add variety",
+      "duration": 56,
+      "schedule": {
+        "morning": {"technique": "coherent-breathing", "duration": 600},
+        "midday": {"technique": "box-breathing", "duration": 300, "note": "or breath of fire for energy"},
+        "evening": {"technique": "alternate-nostril", "duration": 600},
+        "weekly": "One 20-30 minute extended session"
+      },
+      "tracking": ["Weekly BOLT score", "HRV trends"]
+    },
+    {
+      "id": "stress-prone-minimal",
+      "name": "Stress-Prone (Minimal Time)",
+      "description": "For those with limited time who need anxiety relief",
+      "duration": 0,
+      "schedule": {
+        "daily": {"technique": "cyclic-sighing", "duration": 300},
+        "asNeeded": {"technique": "box-breathing", "duration": 300},
+        "integration": "Nasal breathing throughout day"
+      }
+    },
+    {
+      "id": "performance-athlete",
+      "name": "Athletic Performance",
+      "description": "Optimized for athletic training and competition",
+      "duration": 0,
+      "schedule": {
+        "morning": {"technique": "extended-exhale", "duration": 600, "note": "parasympathetic recovery"},
+        "preTraining": {"technique": "cyclic-sighing", "duration": 300, "note": "mental preparation"},
+        "postTraining": {"technique": "recovery-breathing", "duration": 600, "note": "accelerate recovery"},
+        "preCompetition": {"technique": "box-breathing", "duration": 300, "note": "composure under pressure"}
+      }
+    },
+    {
+      "id": "sleep-optimization",
+      "name": "Sleep Optimization",
+      "description": "Protocol for improving sleep quality",
+      "duration": 0,
+      "schedule": {
+        "evening": {"technique": "pre-sleep-breathing", "duration": 900, "note": "15 min before bed"},
+        "ifWakeDuringNight": {"technique": "4-7-8-breathing", "duration": 120}
+      }
+    }
+  ],
+  "assessments": {
+    "boltScore": {
+      "name": "BOLT Score (Body Oxygen Level Test)",
+      "description": "Measures CO2 tolerance by timing until first urge to breathe after normal exhale",
+      "instructions": [
+        "Sit quietly and breathe normally for a few minutes",
+        "Take a normal breath in through your nose",
+        "Take a normal breath out through your nose",
+        "Pinch your nose closed and start timer",
+        "Stop at first definite urge to breathe (not maximum hold)",
+        "Record time in seconds"
+      ],
+      "interpretation": {
+        "below15": {"level": "poor", "meaning": "Poor CO2 tolerance, likely dysfunctional breathing patterns"},
+        "15to24": {"level": "adequate", "meaning": "Room for improvement"},
+        "25to39": {"level": "good", "meaning": "Good CO2 tolerance"},
+        "above40": {"level": "excellent", "meaning": "Excellent respiratory conditioning"}
+      },
+      "trackingFrequency": "weekly"
+    },
+    "restingBreathRate": {
+      "name": "Resting Breath Rate",
+      "description": "Count breaths per minute at rest",
+      "instructions": [
+        "Sit quietly for 5-10 minutes",
+        "Without controlling breath, count breaths for 60 seconds",
+        "One breath = complete inhale + exhale"
+      ],
+      "interpretation": {
+        "below12": {"level": "low", "meaning": "May indicate excellent vagal tone or respiratory depression"},
+        "12to16": {"level": "optimal", "meaning": "Optimal range for parasympathetic dominance"},
+        "16to20": {"level": "normal", "meaning": "Normal but may indicate baseline stress"},
+        "above20": {"level": "elevated", "meaning": "Indicates sympathetic dominance or underlying stress"}
+      },
+      "trackingFrequency": "weekly"
+    }
+  }
+}

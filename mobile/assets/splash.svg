@@ -1,0 +1,33 @@
+<svg width="1284" height="2778" viewBox="0 0 1284 2778" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="splashGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1284" height="2778" fill="url(#splashGrad)"/>
+
+  <!-- Center icon -->
+  <g transform="translate(442, 1139)">
+    <!-- Breathing circle -->
+    <circle cx="200" cy="200" r="180" fill="white" fill-opacity="0.15"/>
+    <circle cx="200" cy="200" r="140" fill="white" fill-opacity="0.2"/>
+    <circle cx="200" cy="200" r="100" fill="white" fill-opacity="0.25"/>
+
+    <!-- Leaf icon -->
+    <g transform="translate(100, 100) scale(0.8)">
+      <path d="M128 48C128 48 96 80 96 128C96 176 128 224 192 256C192 192 192 128 128 48Z"
+            fill="white"/>
+      <path d="M192 96C192 96 160 128 160 176C160 208 176 240 224 272C240 208 240 144 192 96Z"
+            fill="white" fill-opacity="0.8"/>
+      <path d="M128 256C128 256 144 320 192 352"
+            stroke="white" stroke-width="12" stroke-linecap="round" fill="none"/>
+    </g>
+  </g>
+
+  <!-- App name -->
+  <text x="642" y="1600" font-family="system-ui, -apple-system, sans-serif" font-size="64" font-weight="700" fill="white" text-anchor="middle">Breathe</text>
+  <text x="642" y="1660" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="white" fill-opacity="0.8" text-anchor="middle">Master Your Breath</text>
+</svg>

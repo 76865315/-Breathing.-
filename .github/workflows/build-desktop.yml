@@ -1,0 +1,104 @@
+name: Build Desktop App
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: ./desktop
+        run: npm install
+
+      - name: Build Mac App
+        working-directory: ./desktop
+        run: npm run build
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Mac App
+        uses: actions/upload-artifact@v4
+        with:
+          name: Breathe-Mac
+          path: desktop/dist/*.dmg
+
+      - name: Upload Mac App (zip)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Breathe-Mac-zip
+          path: desktop/dist/*.zip
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        working-directory: ./desktop
+        run: npm install
+
+      - name: Build Windows App
+        working-directory: ./desktop
+        run: npm run build:win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Windows App
+        uses: actions/upload-artifact@v4
+        with:
+          name: Breathe-Windows
+          path: desktop/dist/*.exe
+
+  create-release:
+    needs: [build-mac, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download Mac artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Breathe-Mac
+          path: ./release
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: Breathe-Windows
+          path: ./release
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Breathe v1.0.${{ github.run_number }}
+          body: |
+            ## Breathe - Evidence-Based Breathing App
+
+            Download the app for your platform:
+            - **Mac**: Download the `.dmg` file, open it, drag to Applications
+            - **Windows**: Download the `.exe` file, run the installer
+
+            ### Features
+            - 15 evidence-based breathing techniques
+            - Animated breathing guidance
+            - Progress tracking with streaks
+            - Mood improvement tracking
+          files: ./release/*
+          draft: false
+          prerelease: false
