@@ -23,65 +23,40 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./desktop
-        run: |
-          npm install
-          echo "=== node_modules installed ==="
-          ls node_modules | head -20
+        run: npm install
 
       - name: Build Electron app
         working-directory: ./desktop
-        continue-on-error: true
         id: build
         run: |
-          echo "=== Starting electron-builder ==="
-          npx electron-builder --mac -p never 2>&1 | tee build.log
-          echo "=== Build exit code: $? ==="
+          npx electron-builder --mac -p never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: electron-builder
+          CSC_IDENTITY_AUTO_DISCOVERY: false
 
-      - name: Show build log
-        if: always()
+      - name: Ad-hoc sign the app
         working-directory: ./desktop
         run: |
-          echo "=== FULL BUILD LOG ==="
-          cat build.log 2>/dev/null || echo "No build.log found"
+          echo "=== Ad-hoc signing the app ==="
+          codesign --force --deep --sign - dist/mac/Breathe.app
+          echo "=== Verifying signature ==="
+          codesign --verify --verbose dist/mac/Breathe.app || true
 
-      - name: List all files in dist
-        if: always()
+      - name: Rebuild DMG with signed app
         working-directory: ./desktop
         run: |
-          echo "=== All files in dist ==="
-          find dist -type f 2>/dev/null || echo "No dist folder found"
-          echo "=== dist folder listing ==="
-          ls -laR dist/ 2>/dev/null || echo "Cannot list dist"
+          rm -f dist/*.dmg
+          hdiutil create -volname "Breathe" -srcfolder dist/mac/Breathe.app -ov -format UDZO dist/Breathe-1.0.0-arm64.dmg
 
       - name: Upload DMG
-        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Breathe-Mac-DMG
           path: desktop/dist/*.dmg
           if-no-files-found: warn
 
-      - name: Upload App directly
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Breathe-Mac-App
-          path: desktop/dist/mac/Breathe.app
-          if-no-files-found: warn
-
-      - name: Upload build log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: desktop/build.log
-          if-no-files-found: warn
-
       - name: Create Release
-        if: steps.build.outcome == 'success'
+        if: success()
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v1.0.${{ github.run_number }}
@@ -89,6 +64,24 @@ jobs:
           body: |
             ## Breathe - Breathing Exercises App
 
-            Download Breathe.dmg below and double-click to install.
+            **15 evidence-based breathing techniques** for stress relief, better sleep, and focus.
+
+            ### Installation Instructions for Mac
+
+            1. Download `Breathe-1.0.0-arm64.dmg` below
+            2. Double-click to open the DMG
+            3. Drag Breathe to Applications
+            4. **Important:** Right-click (or Control-click) on Breathe and select "Open"
+            5. Click "Open" in the dialog that appears
+            6. The app will now open and you can launch it normally from now on
+
+            > **Note:** This app is not signed with an Apple Developer certificate. The first time you open it, macOS will show a security warning. Using "Right-click > Open" bypasses this for apps from identified developers.
+
+            ### Alternative: Terminal Method
+            If the above doesn't work, open Terminal and run:
+            ```
+            xattr -cr /Applications/Breathe.app
+            ```
+            Then double-click Breathe to open.
           files: desktop/dist/*.dmg
           fail_on_unmatched_files: false
