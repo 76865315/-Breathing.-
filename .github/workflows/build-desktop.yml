@@ -27,36 +27,23 @@ jobs:
 
       - name: Build Electron app
         working-directory: ./desktop
-        id: build
-        run: |
-          npx electron-builder --mac -p never
+        run: npx electron-builder --mac --publish never
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
-      - name: Ad-hoc sign the app
+      - name: List dist contents
         working-directory: ./desktop
-        run: |
-          echo "=== Ad-hoc signing the app ==="
-          codesign --force --deep --sign - dist/mac/Breathe.app
-          echo "=== Verifying signature ==="
-          codesign --verify --verbose dist/mac/Breathe.app || true
-
-      - name: Rebuild DMG with signed app
-        working-directory: ./desktop
-        run: |
-          rm -f dist/*.dmg
-          hdiutil create -volname "Breathe" -srcfolder dist/mac/Breathe.app -ov -format UDZO dist/Breathe-1.0.0-arm64.dmg
+        run: ls -la dist/
 
       - name: Upload DMG
         uses: actions/upload-artifact@v4
         with:
           name: Breathe-Mac-DMG
           path: desktop/dist/*.dmg
-          if-no-files-found: warn
+          if-no-files-found: error
 
       - name: Create Release
-        if: success()
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v1.0.${{ github.run_number }}
@@ -71,17 +58,17 @@ jobs:
             1. Download `Breathe-1.0.0-arm64.dmg` below
             2. Double-click to open the DMG
             3. Drag Breathe to Applications
-            4. **Important:** Right-click (or Control-click) on Breathe and select "Open"
-            5. Click "Open" in the dialog that appears
-            6. The app will now open and you can launch it normally from now on
+            4. **First launch:** Right-click (or Control-click) on Breathe and select **"Open"**
+            5. Click **"Open"** in the security dialog
+            6. The app will now run normally going forward
 
-            > **Note:** This app is not signed with an Apple Developer certificate. The first time you open it, macOS will show a security warning. Using "Right-click > Open" bypasses this for apps from identified developers.
+            > **Why this extra step?** This app isn't signed with an Apple Developer certificate ($99/year). The right-click method tells macOS you trust this app.
 
-            ### Alternative: Terminal Method
-            If the above doesn't work, open Terminal and run:
+            ### If you see "damaged" error
+            Open Terminal and run:
             ```
             xattr -cr /Applications/Breathe.app
             ```
-            Then double-click Breathe to open.
+            Then open the app normally.
           files: desktop/dist/*.dmg
           fail_on_unmatched_files: false

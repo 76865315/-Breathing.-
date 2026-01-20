@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Evidence-based breathing techniques for stress relief, better sleep, and focus",
   "main": "src/main.js",
+  "author": "Breathe App",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/76865315/-Breathing.-.git"
+  },
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --mac",
@@ -18,7 +23,8 @@
     "mac": {
       "category": "public.app-category.healthcare-fitness",
       "icon": "assets/icon.png",
-      "target": ["dmg", "zip"]
+      "target": ["dmg"],
+      "identity": null
     },
     "win": {
       "icon": "assets/icon.png",
@@ -31,7 +37,8 @@
     "files": [
       "src/**/*",
       "assets/**/*"
-    ]
+    ],
+    "publish": null
   },
   "dependencies": {
     "electron-store": "^8.1.0"
