@@ -7,11 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [macos-latest]
+    runs-on: macos-latest
 
     permissions:
       contents: write
@@ -26,31 +22,53 @@ jobs:
           node-version: 20
 
       - name: Install dependencies
-        run: npm install
         working-directory: ./desktop
+        run: npm install
 
       - name: Build Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          package_root: ./desktop
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release: true
-          mac_certs: ""
-          mac_certs_password: ""
+        working-directory: ./desktop
+        run: npx electron-builder --mac -p never
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: List output
+      - name: List all files in dist
         if: always()
+        working-directory: ./desktop
         run: |
-          echo "=== dist folder ==="
-          ls -la ./desktop/dist/ || echo "No dist folder"
+          echo "=== All files in dist ==="
+          find dist -type f 2>/dev/null || echo "No dist folder found"
+          echo "=== dist folder listing ==="
+          ls -laR dist/ 2>/dev/null || echo "Cannot list dist"
 
-      - name: Upload artifacts
+      - name: Upload DMG
         uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: Breathe-${{ matrix.os }}
-          path: |
-            desktop/dist/*.dmg
-            desktop/dist/*.zip
-            desktop/dist/*.exe
+          name: Breathe-Mac-DMG
+          path: desktop/dist/*.dmg
           if-no-files-found: warn
+
+      - name: Upload ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Breathe-Mac-ZIP
+          path: desktop/dist/mac/*.zip
+          if-no-files-found: warn
+
+      - name: Upload App directly
+        uses: actions/upload-artifact@v4
+        with:
+          name: Breathe-Mac-App
+          path: desktop/dist/mac/Breathe.app
+          if-no-files-found: warn
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Breathe v1.0.${{ github.run_number }}
+          body: |
+            ## Breathe - Breathing Exercises App
+
+            Download Breathe.dmg below and double-click to install.
+          files: desktop/dist/*.dmg
+          fail_on_unmatched_files: false
