@@ -23,13 +23,29 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./desktop
-        run: npm install
+        run: |
+          npm install
+          echo "=== node_modules installed ==="
+          ls node_modules | head -20
 
       - name: Build Electron app
         working-directory: ./desktop
-        run: npx electron-builder --mac -p never
+        continue-on-error: true
+        id: build
+        run: |
+          echo "=== Starting electron-builder ==="
+          npx electron-builder --mac -p never 2>&1 | tee build.log
+          echo "=== Build exit code: $? ==="
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: electron-builder
+
+      - name: Show build log
+        if: always()
+        working-directory: ./desktop
+        run: |
+          echo "=== FULL BUILD LOG ==="
+          cat build.log 2>/dev/null || echo "No build.log found"
 
       - name: List all files in dist
         if: always()
@@ -41,27 +57,31 @@ jobs:
           ls -laR dist/ 2>/dev/null || echo "Cannot list dist"
 
       - name: Upload DMG
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Breathe-Mac-DMG
           path: desktop/dist/*.dmg
           if-no-files-found: warn
 
-      - name: Upload ZIP
-        uses: actions/upload-artifact@v4
-        with:
-          name: Breathe-Mac-ZIP
-          path: desktop/dist/mac/*.zip
-          if-no-files-found: warn
-
       - name: Upload App directly
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Breathe-Mac-App
           path: desktop/dist/mac/Breathe.app
           if-no-files-found: warn
 
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: desktop/build.log
+          if-no-files-found: warn
+
       - name: Create Release
+        if: steps.build.outcome == 'success'
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v1.0.${{ github.run_number }}
