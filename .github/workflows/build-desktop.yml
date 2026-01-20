@@ -18,30 +18,55 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Show files
+        working-directory: ./desktop
+        run: |
+          echo "=== Current directory ==="
+          pwd
+          echo "=== Files ==="
+          ls -la
+          echo "=== package.json ==="
+          cat package.json
+          echo "=== src folder ==="
+          ls -la src/
+          echo "=== assets folder ==="
+          ls -la assets/
+
       - name: Install dependencies
         working-directory: ./desktop
         run: |
+          echo "=== npm version ==="
+          npm --version
+          echo "=== node version ==="
+          node --version
           echo "=== Installing dependencies ==="
-          npm install 2>&1 || { echo "npm install failed"; exit 1; }
-          echo "=== Dependencies installed ==="
+          npm install --verbose
+          echo "=== Installed packages ==="
+          ls -la node_modules/ | head -20
+          echo "=== electron-builder version ==="
+          npx electron-builder --version
 
       - name: Build Mac App
         working-directory: ./desktop
         run: |
-          echo "=== Starting build ==="
-          npm run build 2>&1 || { echo "Build failed"; exit 1; }
-          echo "=== Build complete ==="
+          echo "=== Starting electron-builder ==="
+          npx electron-builder --mac --publish=never 2>&1
+          echo "=== Build finished ==="
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEBUG: electron-builder
 
       - name: List build output
+        if: always()
         working-directory: ./desktop
         run: |
-          echo "=== Listing dist folder ==="
-          ls -la dist/ || echo "dist folder not found"
+          echo "=== Checking dist folder ==="
+          ls -la dist/ 2>/dev/null || echo "dist folder does not exist"
+          echo "=== Checking for dmg ==="
+          find . -name "*.dmg" 2>/dev/null || echo "No dmg found"
 
       - name: Upload Mac DMG
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: Breathe-Mac-DMG
@@ -49,6 +74,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload Mac ZIP
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: Breathe-Mac-ZIP
@@ -56,6 +82,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Create Release
+        if: success()
         uses: softprops/action-gh-release@v1
         with:
           tag_name: v1.0.${{ github.run_number }}
@@ -70,56 +97,8 @@ jobs:
             2. Open it
             3. Drag Breathe to Applications
             4. Double-click Breathe in Applications to run
-
-            ### Features
-            - 15 evidence-based breathing techniques ranked by health impact
-            - Animated breathing circle with visual guidance
-            - Progress tracking with streaks and mood improvements
-            - Works offline - all data saved locally
           files: |
             desktop/dist/*.dmg
             desktop/dist/*.zip
           draft: false
           prerelease: false
-
-  build-windows:
-    runs-on: windows-latest
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        working-directory: ./desktop
-        run: |
-          echo "=== Installing dependencies ==="
-          npm install 2>&1
-          echo "=== Dependencies installed ==="
-
-      - name: Build Windows App
-        working-directory: ./desktop
-        run: |
-          echo "=== Starting build ==="
-          npm run build:win 2>&1
-          echo "=== Build complete ==="
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEBUG: electron-builder
-
-      - name: List build output
-        working-directory: ./desktop
-        run: |
-          echo "=== Listing dist folder ==="
-          dir dist
-
-      - name: Upload Windows App
-        uses: actions/upload-artifact@v4
-        with:
-          name: Breathe-Windows
-          path: desktop/dist/*.exe
-          if-no-files-found: warn
