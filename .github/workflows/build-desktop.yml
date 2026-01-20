@@ -20,17 +20,26 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./desktop
-        run: npm install
+        run: |
+          echo "=== Installing dependencies ==="
+          npm install 2>&1 || { echo "npm install failed"; exit 1; }
+          echo "=== Dependencies installed ==="
 
       - name: Build Mac App
         working-directory: ./desktop
-        run: npm run build
+        run: |
+          echo "=== Starting build ==="
+          npm run build 2>&1 || { echo "Build failed"; exit 1; }
+          echo "=== Build complete ==="
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: electron-builder
 
       - name: List build output
         working-directory: ./desktop
-        run: ls -la dist/
+        run: |
+          echo "=== Listing dist folder ==="
+          ls -la dist/ || echo "dist folder not found"
 
       - name: Upload Mac DMG
         uses: actions/upload-artifact@v4
@@ -87,13 +96,26 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./desktop
-        run: npm install
+        run: |
+          echo "=== Installing dependencies ==="
+          npm install 2>&1
+          echo "=== Dependencies installed ==="
 
       - name: Build Windows App
         working-directory: ./desktop
-        run: npm run build:win
+        run: |
+          echo "=== Starting build ==="
+          npm run build:win 2>&1
+          echo "=== Build complete ==="
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEBUG: electron-builder
+
+      - name: List build output
+        working-directory: ./desktop
+        run: |
+          echo "=== Listing dist folder ==="
+          dir dist
 
       - name: Upload Windows App
         uses: actions/upload-artifact@v4
