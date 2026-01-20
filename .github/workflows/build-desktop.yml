@@ -32,9 +32,20 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
-      - name: List dist contents
+      - name: Ad-hoc sign the app bundle
         working-directory: ./desktop
-        run: ls -la dist/
+        run: |
+          echo "Ad-hoc signing the app..."
+          codesign --force --deep --sign - "dist/mac/Breathe.app"
+          echo "Verifying signature..."
+          codesign -dv --verbose=4 "dist/mac/Breathe.app" 2>&1 || true
+
+      - name: Create new DMG with signed app
+        working-directory: ./desktop
+        run: |
+          rm -f dist/*.dmg
+          hdiutil create -volname "Breathe" -srcfolder "dist/mac/Breathe.app" -ov -format UDZO "dist/Breathe-1.0.0-arm64.dmg"
+          ls -la dist/
 
       - name: Upload DMG
         uses: actions/upload-artifact@v4
@@ -53,22 +64,30 @@ jobs:
 
             **15 evidence-based breathing techniques** for stress relief, better sleep, and focus.
 
-            ### Installation Instructions for Mac
+            ---
 
-            1. Download `Breathe-1.0.0-arm64.dmg` below
+            ### 📥 Installation (Mac)
+
+            1. Download **Breathe-1.0.0-arm64.dmg** below
             2. Double-click to open the DMG
-            3. Drag Breathe to Applications
-            4. **First launch:** Right-click (or Control-click) on Breathe and select **"Open"**
-            5. Click **"Open"** in the security dialog
-            6. The app will now run normally going forward
+            3. Drag **Breathe** to your **Applications** folder
+            4. Open **Terminal** (search for it in Spotlight)
+            5. Run this command:
+               ```
+               xattr -cr /Applications/Breathe.app
+               ```
+            6. Now double-click **Breathe** in Applications to open it!
 
-            > **Why this extra step?** This app isn't signed with an Apple Developer certificate ($99/year). The right-click method tells macOS you trust this app.
+            > ⚠️ **Why the Terminal step?** This app isn't signed with a $99/year Apple Developer certificate. The `xattr` command removes the quarantine flag that macOS adds to downloaded files.
 
-            ### If you see "damaged" error
-            Open Terminal and run:
-            ```
-            xattr -cr /Applications/Breathe.app
-            ```
-            Then open the app normally.
+            ---
+
+            ### Features
+            - 15 breathing techniques (Box Breathing, 4-7-8, Wim Hof, and more)
+            - Animated breathing circle guide
+            - Session timer and cycle counter
+            - Mood tracking (before & after)
+            - Progress statistics
+            - Beautiful gradient UI
           files: desktop/dist/*.dmg
           fail_on_unmatched_files: false
