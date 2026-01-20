@@ -32,19 +32,22 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CSC_IDENTITY_AUTO_DISCOVERY: false
 
-      - name: Ad-hoc sign the app bundle
+      - name: Find and sign the app
         working-directory: ./desktop
         run: |
-          echo "Ad-hoc signing the app..."
-          codesign --force --deep --sign - "dist/mac/Breathe.app"
-          echo "Verifying signature..."
-          codesign -dv --verbose=4 "dist/mac/Breathe.app" 2>&1 || true
-
-      - name: Create new DMG with signed app
-        working-directory: ./desktop
-        run: |
-          rm -f dist/*.dmg
-          hdiutil create -volname "Breathe" -srcfolder "dist/mac/Breathe.app" -ov -format UDZO "dist/Breathe-1.0.0-arm64.dmg"
+          echo "=== Listing dist folder ==="
+          ls -laR dist/
+          echo "=== Finding .app bundle ==="
+          APP_PATH=$(find dist -name "*.app" -type d | head -1)
+          echo "Found app at: $APP_PATH"
+          if [ -n "$APP_PATH" ]; then
+            echo "Ad-hoc signing..."
+            codesign --force --deep --sign - "$APP_PATH"
+            echo "Creating new DMG..."
+            rm -f dist/*.dmg
+            hdiutil create -volname "Breathe" -srcfolder "$APP_PATH" -ov -format UDZO "dist/Breathe-1.0.0-arm64.dmg"
+          fi
+          echo "=== Final dist contents ==="
           ls -la dist/
 
       - name: Upload DMG
@@ -71,14 +74,14 @@ jobs:
             1. Download **Breathe-1.0.0-arm64.dmg** below
             2. Double-click to open the DMG
             3. Drag **Breathe** to your **Applications** folder
-            4. Open **Terminal** (search for it in Spotlight)
+            4. Open **Terminal** (press Cmd+Space, type Terminal)
             5. Run this command:
                ```
                xattr -cr /Applications/Breathe.app
                ```
-            6. Now double-click **Breathe** in Applications to open it!
+            6. Double-click **Breathe** in Applications to launch!
 
-            > ⚠️ **Why the Terminal step?** This app isn't signed with a $99/year Apple Developer certificate. The `xattr` command removes the quarantine flag that macOS adds to downloaded files.
+            > ⚠️ **Why the Terminal step?** This app isn't signed with a $99/year Apple Developer certificate. The `xattr` command removes the quarantine flag macOS adds to downloads.
 
             ---
 
