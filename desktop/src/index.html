@@ -468,9 +468,554 @@
     .hidden {
       display: none !important;
     }
+
+    /* ==========================================
+       HEALTH DISCLAIMER MODAL STYLES
+       ========================================== */
+
+    .disclaimer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .disclaimer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .disclaimer-modal {
+      background: white;
+      border-radius: 24px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .disclaimer-overlay.active .disclaimer-modal {
+      transform: scale(1);
+    }
+
+    .disclaimer-header {
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .disclaimer-header-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+    }
+
+    .disclaimer-header h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .disclaimer-header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .disclaimer-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      color: var(--gray-900);
+    }
+
+    .disclaimer-section {
+      margin-bottom: 24px;
+    }
+
+    .disclaimer-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .disclaimer-section h2 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #dc2626;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .disclaimer-section h2 .section-icon {
+      font-size: 20px;
+    }
+
+    .disclaimer-section p {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--gray-700);
+      margin-bottom: 12px;
+    }
+
+    .disclaimer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .disclaimer-section ul li {
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--gray-700);
+      padding: 8px 0 8px 28px;
+      position: relative;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .disclaimer-section ul li:last-child {
+      border-bottom: none;
+    }
+
+    .disclaimer-section ul li::before {
+      content: "⚠️";
+      position: absolute;
+      left: 0;
+      top: 8px;
+    }
+
+    .disclaimer-section.stop-symptoms ul li::before {
+      content: "🚨";
+    }
+
+    .disclaimer-section.consult ul li::before {
+      content: "👨‍⚕️";
+    }
+
+    .disclaimer-section.acknowledgments ul li::before {
+      content: "✓";
+      color: var(--primary);
+      font-weight: bold;
+    }
+
+    .disclaimer-warning-box {
+      background: #fef2f2;
+      border: 2px solid #dc2626;
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .disclaimer-warning-box p {
+      color: #991b1b;
+      font-weight: 600;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .disclaimer-info-box {
+      background: #eff6ff;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 16px 0;
+    }
+
+    .disclaimer-info-box p {
+      color: #1e40af;
+      font-weight: 500;
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .disclaimer-footer {
+      padding: 20px 24px;
+      background: var(--gray-50);
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .disclaimer-checkbox-group {
+      margin-bottom: 16px;
+    }
+
+    .disclaimer-checkbox {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      background: white;
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-bottom: 8px;
+    }
+
+    .disclaimer-checkbox:hover {
+      border-color: var(--primary);
+    }
+
+    .disclaimer-checkbox.checked {
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    .disclaimer-checkbox input {
+      width: 20px;
+      height: 20px;
+      margin-top: 2px;
+      cursor: pointer;
+      accent-color: var(--primary);
+    }
+
+    .disclaimer-checkbox span {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--gray-700);
+      flex: 1;
+    }
+
+    .disclaimer-checkbox span strong {
+      color: var(--gray-900);
+    }
+
+    .disclaimer-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+
+    .disclaimer-links a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .disclaimer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .disclaimer-accept-btn {
+      width: 100%;
+      padding: 16px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      color: white;
+      background: var(--gray-300);
+      border: none;
+      border-radius: 12px;
+      cursor: not-allowed;
+      transition: all 0.3s ease;
+    }
+
+    .disclaimer-accept-btn.enabled {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      cursor: pointer;
+    }
+
+    .disclaimer-accept-btn.enabled:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    }
+
+    .disclaimer-version {
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray-400);
+      margin-top: 12px;
+    }
+
+    /* Legal Document Modal */
+    .legal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 10001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .legal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .legal-modal {
+      background: white;
+      border-radius: 16px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 80vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .legal-modal-header {
+      padding: 20px 24px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .legal-modal-header h2 {
+      font-size: 18px;
+      color: var(--gray-900);
+    }
+
+    .legal-close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--gray-500);
+      padding: 4px;
+      line-height: 1;
+    }
+
+    .legal-close-btn:hover {
+      color: var(--gray-900);
+    }
+
+    .legal-modal-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--gray-700);
+    }
+
+    .legal-modal-content h3 {
+      font-size: 14px;
+      color: var(--gray-900);
+      margin: 20px 0 10px;
+    }
+
+    .legal-modal-content h3:first-child {
+      margin-top: 0;
+    }
+
+    .legal-modal-content p {
+      margin-bottom: 12px;
+    }
+
+    .legal-modal-content ul {
+      margin: 12px 0;
+      padding-left: 24px;
+    }
+
+    .legal-modal-content ul li {
+      margin-bottom: 8px;
+    }
   </style>
 </head>
 <body>
+  <!-- ==========================================
+       HEALTH DISCLAIMER MODAL
+       First-launch comprehensive health warning
+       ========================================== -->
+  <div id="disclaimer-overlay" class="disclaimer-overlay">
+    <div class="disclaimer-modal">
+      <div class="disclaimer-header">
+        <div class="disclaimer-header-icon">⚠️</div>
+        <h1>Important Health & Safety Disclaimer</h1>
+        <p>Please read carefully before using the Breathe app</p>
+      </div>
+
+      <div class="disclaimer-content">
+        <!-- Section 1: Not a Medical Device -->
+        <div class="disclaimer-section">
+          <h2><span class="section-icon">🏥</span> This App is NOT a Medical Device</h2>
+          <p>The Breathe application has <strong>NOT</strong> been evaluated, cleared, or approved by the U.S. Food and Drug Administration (FDA), Health Canada, the European Medicines Agency (EMA), the Therapeutic Goods Administration (TGA), or any other regulatory body.</p>
+          <div class="disclaimer-warning-box">
+            <p>⚠️ THE BREATHE APP DOES NOT PROVIDE MEDICAL ADVICE, DIAGNOSIS, TREATMENT, OR CURE FOR ANY DISEASE, CONDITION, OR HEALTH PROBLEM. The breathing exercises are for general wellness purposes only.</p>
+          </div>
+        </div>
+
+        <!-- Section 2: Not a Substitute -->
+        <div class="disclaimer-section">
+          <h2><span class="section-icon">👨‍⚕️</span> Not a Substitute for Professional Care</h2>
+          <p>This app is <strong>NOT</strong> intended to replace:</p>
+          <ul class="consult">
+            <li>Professional medical advice from a licensed physician</li>
+            <li>Mental health counseling from a licensed therapist</li>
+            <li>Emergency medical treatment or intervention</li>
+            <li>Prescribed medication or therapy programs</li>
+            <li>Consultation with qualified healthcare providers</li>
+          </ul>
+          <div class="disclaimer-info-box">
+            <p>ℹ️ ALWAYS consult your physician or qualified healthcare provider before beginning any breathing exercise program, especially if you have existing health conditions.</p>
+          </div>
+        </div>
+
+        <!-- Section 3: STOP Immediately If... -->
+        <div class="disclaimer-section stop-symptoms">
+          <h2><span class="section-icon">🚨</span> STOP Immediately & Seek Medical Help If You Experience:</h2>
+          <ul>
+            <li><strong>Dizziness, lightheadedness, or fainting</strong> - Stop all breathing exercises immediately</li>
+            <li><strong>Shortness of breath or difficulty breathing</strong> - This could indicate a serious condition</li>
+            <li><strong>Chest pain, pressure, tightness, or discomfort</strong> - May indicate cardiac issues</li>
+            <li><strong>Heart palpitations, rapid or irregular heartbeat</strong> - Could be a sign of arrhythmia</li>
+            <li><strong>Numbness, tingling, or weakness</strong> - May indicate circulation or neurological issues</li>
+            <li><strong>Nausea, vomiting, or severe headache</strong> - Could indicate various medical conditions</li>
+            <li><strong>Visual disturbances or blurred vision</strong> - May indicate blood pressure changes</li>
+            <li><strong>Anxiety, panic attacks, or severe emotional distress</strong> - Certain techniques may not be suitable</li>
+            <li><strong>Confusion, disorientation, or altered consciousness</strong> - Seek immediate medical attention</li>
+            <li><strong>Any other symptoms that concern you</strong> - Trust your instincts and stop immediately</li>
+          </ul>
+        </div>
+
+        <!-- Section 4: Consult Before Use -->
+        <div class="disclaimer-section consult">
+          <h2><span class="section-icon">⚕️</span> Consult Your Doctor BEFORE Using If You Have:</h2>
+          <ul>
+            <li><strong>Cardiovascular conditions</strong> - Heart disease, heart failure, arrhythmias, angina</li>
+            <li><strong>High or low blood pressure</strong> - Hypertension or hypotension</li>
+            <li><strong>Respiratory conditions</strong> - Asthma, COPD, emphysema, bronchitis, sleep apnea</li>
+            <li><strong>Neurological conditions</strong> - Epilepsy, seizure disorders, migraines</li>
+            <li><strong>Mental health conditions</strong> - Anxiety disorders, panic disorder, PTSD, depression</li>
+            <li><strong>Pregnancy or nursing</strong> - Some techniques may not be appropriate</li>
+            <li><strong>Recent surgery or injury</strong> - Especially thoracic or abdominal</li>
+            <li><strong>Diabetes</strong> - Blood sugar levels can be affected by breathing patterns</li>
+            <li><strong>Glaucoma or retinal detachment</strong> - Certain techniques increase intraocular pressure</li>
+            <li><strong>History of stroke or TIA</strong> - Blood pressure changes may pose risks</li>
+            <li><strong>Taking medications</strong> - Especially cardiovascular, respiratory, or psychiatric medications</li>
+            <li><strong>Any chronic health condition</strong> - Consult your healthcare provider first</li>
+          </ul>
+        </div>
+
+        <!-- Section 5: Safe Use Guidelines -->
+        <div class="disclaimer-section">
+          <h2><span class="section-icon">🛡️</span> Safe Use Guidelines</h2>
+          <ul>
+            <li><strong>DO NOT</strong> use while driving, operating machinery, or in situations requiring full attention</li>
+            <li><strong>DO NOT</strong> use while swimming, bathing, or near water</li>
+            <li><strong>DO NOT</strong> use in environments where losing consciousness would be dangerous</li>
+            <li><strong>Start slowly</strong> - Begin with shorter sessions and gentler techniques</li>
+            <li><strong>Practice in a safe environment</strong> - Sit or lie down in a comfortable, safe location</li>
+            <li><strong>Stay hydrated</strong> - Drink water before and after sessions</li>
+            <li><strong>Listen to your body</strong> - Stop immediately if anything feels wrong</li>
+            <li><strong>Do not force breathing</strong> - Breathing should never be painful or uncomfortable</li>
+          </ul>
+        </div>
+
+        <!-- Section 6: Assumption of Risk -->
+        <div class="disclaimer-section">
+          <h2><span class="section-icon">📋</span> Assumption of Risk & Release</h2>
+          <div class="disclaimer-warning-box">
+            <p>BY USING THIS APP, YOU ACKNOWLEDGE THAT BREATHING EXERCISES CARRY INHERENT RISKS AND YOU VOLUNTARILY ASSUME ALL SUCH RISKS. You understand that [COMPANY_NAME] is NOT responsible for any injury, illness, death, or other harm that may result from your use of this app.</p>
+          </div>
+          <p>You agree that you are solely responsible for your own health and safety while using this app. You release [COMPANY_NAME], its officers, directors, employees, and affiliates from any and all liability arising from your use of this app.</p>
+        </div>
+
+        <!-- Section 7: Emergency Information -->
+        <div class="disclaimer-section">
+          <h2><span class="section-icon">🆘</span> In Case of Emergency</h2>
+          <div class="disclaimer-warning-box">
+            <p>THIS APP IS NOT FOR EMERGENCIES. If you are experiencing a medical emergency, IMMEDIATELY call your local emergency services:</p>
+          </div>
+          <ul>
+            <li><strong>United States:</strong> 911</li>
+            <li><strong>United Kingdom:</strong> 999</li>
+            <li><strong>European Union:</strong> 112</li>
+            <li><strong>Australia:</strong> 000</li>
+            <li><strong>Canada:</strong> 911</li>
+          </ul>
+          <p style="margin-top: 12px; font-weight: 600;">Do NOT rely on this app for emergency medical assistance.</p>
+        </div>
+
+        <!-- Section 8: Limitation of Liability -->
+        <div class="disclaimer-section">
+          <h2><span class="section-icon">⚖️</span> Limitation of Liability</h2>
+          <p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, [COMPANY_NAME] SHALL NOT BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING BUT NOT LIMITED TO:</p>
+          <ul>
+            <li>Personal injury, illness, or death</li>
+            <li>Any health consequences from performing breathing exercises</li>
+            <li>Loss of profits, data, or goodwill</li>
+            <li>Any other damages arising from your use of this app</li>
+          </ul>
+          <p><strong>TOTAL LIABILITY IS LIMITED TO THE LESSER OF $100 OR THE AMOUNT PAID FOR THE APP IN THE PRECEDING 12 MONTHS.</strong></p>
+        </div>
+
+      </div>
+
+      <div class="disclaimer-footer">
+        <div class="disclaimer-checkbox-group">
+          <label class="disclaimer-checkbox" id="checkbox1-label">
+            <input type="checkbox" id="disclaimer-checkbox-1" onchange="updateDisclaimerCheckbox(1)">
+            <span>I have <strong>read and understood</strong> the complete health and safety disclaimer above, including all warnings about when NOT to use this app and when to seek medical attention.</span>
+          </label>
+          <label class="disclaimer-checkbox" id="checkbox2-label">
+            <input type="checkbox" id="disclaimer-checkbox-2" onchange="updateDisclaimerCheckbox(2)">
+            <span>I understand that this app is <strong>NOT a medical device</strong>, does NOT provide medical advice, and is NOT a substitute for professional medical care. I will consult my healthcare provider before use if I have any health conditions.</span>
+          </label>
+          <label class="disclaimer-checkbox" id="checkbox3-label">
+            <input type="checkbox" id="disclaimer-checkbox-3" onchange="updateDisclaimerCheckbox(3)">
+            <span>I <strong>voluntarily assume all risks</strong> associated with using this app and performing breathing exercises. I agree to the <strong>Terms of Service</strong> and <strong>Privacy Policy</strong>, including the limitation of liability and arbitration provisions.</span>
+          </label>
+          <label class="disclaimer-checkbox" id="checkbox4-label">
+            <input type="checkbox" id="disclaimer-checkbox-4" onchange="updateDisclaimerCheckbox(4)">
+            <span>I am <strong>at least 13 years old</strong> (or have parental consent), and I am NOT currently experiencing any medical emergency or acute health crisis.</span>
+          </label>
+        </div>
+
+        <div class="disclaimer-links">
+          <a href="#" onclick="showLegalDocument('terms'); return false;">📄 Terms of Service</a>
+          <a href="#" onclick="showLegalDocument('privacy'); return false;">🔒 Privacy Policy</a>
+        </div>
+
+        <button id="disclaimer-accept-btn" class="disclaimer-accept-btn" onclick="acceptDisclaimer()" disabled>
+          I Understand and Accept All Terms
+        </button>
+
+        <div class="disclaimer-version">
+          Disclaimer Version 1.0 | Last Updated: [EFFECTIVE_DATE]
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal Document Modal (Terms of Service / Privacy Policy) -->
+  <div id="legal-overlay" class="legal-overlay">
+    <div class="legal-modal">
+      <div class="legal-modal-header">
+        <h2 id="legal-modal-title">Legal Document</h2>
+        <button class="legal-close-btn" onclick="closeLegalDocument()">×</button>
+      </div>
+      <div class="legal-modal-content" id="legal-modal-content">
+        <!-- Content loaded dynamically -->
+      </div>
+    </div>
+  </div>
+
   <div class="container">
     <!-- Home Screen -->
     <div id="home-screen" class="screen active">
@@ -643,6 +1188,267 @@
   </nav>
 
   <script>
+    // ==========================================
+    // HEALTH DISCLAIMER FUNCTIONS
+    // ==========================================
+
+    const DISCLAIMER_VERSION = '1.0';
+    const DISCLAIMER_STORAGE_KEY = 'breathe-disclaimer-accepted';
+
+    // Check if disclaimer was accepted
+    function checkDisclaimer() {
+      let accepted = false;
+
+      if (window.electronAPI) {
+        // For Electron, we'll check synchronously via localStorage as fallback
+        const stored = localStorage.getItem(DISCLAIMER_STORAGE_KEY);
+        if (stored) {
+          try {
+            const data = JSON.parse(stored);
+            accepted = data.version === DISCLAIMER_VERSION && data.accepted === true;
+          } catch (e) {
+            accepted = false;
+          }
+        }
+      } else {
+        const stored = localStorage.getItem(DISCLAIMER_STORAGE_KEY);
+        if (stored) {
+          try {
+            const data = JSON.parse(stored);
+            accepted = data.version === DISCLAIMER_VERSION && data.accepted === true;
+          } catch (e) {
+            accepted = false;
+          }
+        }
+      }
+
+      if (!accepted) {
+        showDisclaimer();
+      }
+    }
+
+    // Show the disclaimer modal
+    function showDisclaimer() {
+      const overlay = document.getElementById('disclaimer-overlay');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Update checkbox states
+    function updateDisclaimerCheckbox(num) {
+      const checkbox = document.getElementById(`disclaimer-checkbox-${num}`);
+      const label = document.getElementById(`checkbox${num}-label`);
+
+      if (checkbox.checked) {
+        label.classList.add('checked');
+      } else {
+        label.classList.remove('checked');
+      }
+
+      checkAllCheckboxes();
+    }
+
+    // Check if all checkboxes are checked
+    function checkAllCheckboxes() {
+      const checkbox1 = document.getElementById('disclaimer-checkbox-1').checked;
+      const checkbox2 = document.getElementById('disclaimer-checkbox-2').checked;
+      const checkbox3 = document.getElementById('disclaimer-checkbox-3').checked;
+      const checkbox4 = document.getElementById('disclaimer-checkbox-4').checked;
+
+      const acceptBtn = document.getElementById('disclaimer-accept-btn');
+
+      if (checkbox1 && checkbox2 && checkbox3 && checkbox4) {
+        acceptBtn.disabled = false;
+        acceptBtn.classList.add('enabled');
+      } else {
+        acceptBtn.disabled = true;
+        acceptBtn.classList.remove('enabled');
+      }
+    }
+
+    // Accept the disclaimer
+    function acceptDisclaimer() {
+      const checkbox1 = document.getElementById('disclaimer-checkbox-1').checked;
+      const checkbox2 = document.getElementById('disclaimer-checkbox-2').checked;
+      const checkbox3 = document.getElementById('disclaimer-checkbox-3').checked;
+      const checkbox4 = document.getElementById('disclaimer-checkbox-4').checked;
+
+      if (!(checkbox1 && checkbox2 && checkbox3 && checkbox4)) {
+        return;
+      }
+
+      // Save acceptance
+      const acceptanceData = {
+        version: DISCLAIMER_VERSION,
+        accepted: true,
+        acceptedAt: new Date().toISOString(),
+        checkboxes: {
+          readAndUnderstood: checkbox1,
+          notMedicalDevice: checkbox2,
+          assumesRisks: checkbox3,
+          ageConfirmed: checkbox4
+        }
+      };
+
+      localStorage.setItem(DISCLAIMER_STORAGE_KEY, JSON.stringify(acceptanceData));
+
+      // Also save to electron store if available
+      if (window.electronAPI && window.electronAPI.store) {
+        window.electronAPI.store.set(DISCLAIMER_STORAGE_KEY, acceptanceData);
+      }
+
+      // Hide the disclaimer
+      const overlay = document.getElementById('disclaimer-overlay');
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Show legal document (Terms or Privacy)
+    function showLegalDocument(type) {
+      const overlay = document.getElementById('legal-overlay');
+      const title = document.getElementById('legal-modal-title');
+      const content = document.getElementById('legal-modal-content');
+
+      if (type === 'terms') {
+        title.textContent = 'Terms of Service';
+        content.innerHTML = getTermsOfServiceSummary();
+      } else if (type === 'privacy') {
+        title.textContent = 'Privacy Policy';
+        content.innerHTML = getPrivacyPolicySummary();
+      }
+
+      overlay.classList.add('active');
+    }
+
+    // Close legal document modal
+    function closeLegalDocument() {
+      const overlay = document.getElementById('legal-overlay');
+      overlay.classList.remove('active');
+    }
+
+    // Terms of Service Summary (key points)
+    function getTermsOfServiceSummary() {
+      return `
+        <h3>📋 TERMS OF SERVICE SUMMARY</h3>
+        <p><strong>Last Updated:</strong> [EFFECTIVE_DATE]</p>
+        <p>This is a summary of key terms. The full Terms of Service is available at [WEBSITE]/terms</p>
+
+        <h3>1. Acceptance of Terms</h3>
+        <p>By using the Breathe app, you agree to be bound by these Terms of Service. If you do not agree, do not use the app.</p>
+
+        <h3>2. License Grant</h3>
+        <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use the app for personal, non-commercial purposes on up to 3 devices.</p>
+
+        <h3>3. Health Disclaimer</h3>
+        <p><strong>IMPORTANT:</strong> The Breathe app is NOT a medical device and does NOT provide medical advice, diagnosis, or treatment. Always consult your healthcare provider before use.</p>
+
+        <h3>4. Prohibited Uses</h3>
+        <p>You may not: reverse engineer the app, use it for commercial purposes without consent, distribute or resell the app, or use it illegally.</p>
+
+        <h3>5. Intellectual Property</h3>
+        <p>All content, features, and functionality of the app are owned by [COMPANY_NAME] and protected by intellectual property laws.</p>
+
+        <h3>6. Disclaimer of Warranties</h3>
+        <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED.</p>
+
+        <h3>7. Limitation of Liability</h3>
+        <p>Our total liability is limited to the lesser of $100 or the amount you paid for the app in the preceding 12 months. We are not liable for any indirect, incidental, special, consequential, or punitive damages.</p>
+
+        <h3>8. Indemnification</h3>
+        <p>You agree to defend, indemnify, and hold harmless [COMPANY_NAME] from any claims arising from your use of the app or violation of these terms.</p>
+
+        <h3>9. Dispute Resolution</h3>
+        <p><strong>IMPORTANT:</strong> Disputes are resolved through binding arbitration, not in court. You waive your right to participate in class actions and jury trials.</p>
+
+        <h3>10. Termination</h3>
+        <p>We may terminate your license at any time for any reason. Upon termination, you must stop using and delete the app.</p>
+
+        <h3>11. Governing Law</h3>
+        <p>These terms are governed by the laws of [STATE], United States.</p>
+
+        <h3>12. Contact</h3>
+        <p>Questions? Contact us at [EMAIL]</p>
+
+        <p style="margin-top: 24px; padding: 12px; background: #f3f4f6; border-radius: 8px; font-size: 12px;">
+          <strong>Full Terms of Service:</strong> The complete legal document is available at [WEBSITE]/terms. This summary is provided for convenience only and does not replace the full Terms of Service.
+        </p>
+      `;
+    }
+
+    // Privacy Policy Summary (key points)
+    function getPrivacyPolicySummary() {
+      return `
+        <h3>🔒 PRIVACY POLICY SUMMARY</h3>
+        <p><strong>Last Updated:</strong> [EFFECTIVE_DATE]</p>
+        <p>This is a summary of our privacy practices. The full Privacy Policy is available at [WEBSITE]/privacy</p>
+
+        <h3>1. Data We Collect</h3>
+        <p><strong>LOCAL DATA ONLY:</strong> The Breathe app stores all your data locally on your device. We do NOT transmit your breathing sessions, mood ratings, or statistics to our servers.</p>
+        <ul>
+          <li>✅ Breathing session data (stored locally)</li>
+          <li>✅ Mood ratings (stored locally)</li>
+          <li>✅ App preferences (stored locally)</li>
+          <li>❌ We do NOT collect personal identification info</li>
+          <li>❌ We do NOT track your location</li>
+          <li>❌ We do NOT use advertising trackers</li>
+        </ul>
+
+        <h3>2. How We Use Your Data</h3>
+        <p>Your locally stored data is used solely to:</p>
+        <ul>
+          <li>Track your breathing session progress</li>
+          <li>Display your statistics and achievements</li>
+          <li>Remember your preferences</li>
+        </ul>
+
+        <h3>3. Data Sharing</h3>
+        <p><strong>WE DO NOT SELL YOUR DATA.</strong> Since your data stays on your device, we have no data to share with third parties.</p>
+
+        <h3>4. Cookies & Tracking</h3>
+        <p>The Breathe app does NOT use cookies, web beacons, tracking pixels, or advertising identifiers.</p>
+
+        <h3>5. Your Rights</h3>
+        <p>Depending on your location, you may have rights to:</p>
+        <ul>
+          <li>Access your data (view it in the app)</li>
+          <li>Delete your data (uninstall the app or clear data)</li>
+          <li>Data portability</li>
+          <li>Object to processing</li>
+        </ul>
+
+        <h3>6. Children's Privacy (COPPA)</h3>
+        <p>The app is intended for users 13 years and older. We do not knowingly collect data from children under 13.</p>
+
+        <h3>7. GDPR Rights (EEA Residents)</h3>
+        <p>EEA residents have rights under GDPR including access, rectification, erasure, restriction, portability, and objection.</p>
+
+        <h3>8. CCPA Rights (California Residents)</h3>
+        <p>California residents have rights under CCPA including the right to know, delete, opt-out of sale (we don't sell), and non-discrimination.</p>
+
+        <h3>9. Data Security</h3>
+        <p>Your data is stored locally on your device. We recommend keeping your device secure and updated.</p>
+
+        <h3>10. Data Retention</h3>
+        <p>Local data remains on your device until you delete the app or clear app data. You control your data.</p>
+
+        <h3>11. Contact Us</h3>
+        <p>Privacy questions? Contact us at [PRIVACY_EMAIL]</p>
+
+        <p style="margin-top: 24px; padding: 12px; background: #f3f4f6; border-radius: 8px; font-size: 12px;">
+          <strong>Full Privacy Policy:</strong> The complete legal document is available at [WEBSITE]/privacy. This summary is provided for convenience only and does not replace the full Privacy Policy.
+        </p>
+      `;
+    }
+
+    // Run disclaimer check when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      checkDisclaimer();
+    });
+
+    // ==========================================
+    // END HEALTH DISCLAIMER FUNCTIONS
+    // ==========================================
+
     // Breathing techniques data
     const techniques = [
       { id: 'cyclic-sighing', name: 'Cyclic Sighing', rank: 1, difficulty: 'Beginner', duration: 300, inhale: 4, hold: 0, exhale: 6, holdEmpty: 0 },
