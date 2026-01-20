@@ -1,5 +1,5 @@
 {
-  "name": "Breathe",
+  "name": "breathe-app",
   "version": "1.0.0",
   "description": "Evidence-based breathing techniques for stress relief, better sleep, and focus",
   "main": "src/main.js",
